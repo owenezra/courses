@@ -103,8 +103,8 @@
       </style>
       <main class="gate">
         <form class="gate-card" id="gate-form">
-          <h1>Courses</h1>
-          <p>This page is locked. Enter the course password.</p>
+          <h1>Pairwise v4</h1>
+          <p>This course is locked. Enter the course password.</p>
           <label for="gate-pass">Password</label>
           <input id="gate-pass" name="password" type="password" autocomplete="current-password" autofocus />
           <p class="gate-error" id="gate-error" hidden>Not correct.</p>

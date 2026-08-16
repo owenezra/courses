@@ -12,14 +12,12 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="shared/hub.css" />
-    <script src="shared/gate.js"></script>
     <script src="catalog.js"></script>
   </head>
   <body>
     <div class="wrap" id="hub"></div>
     <script>
       (function () {
-        if (!window.CoursesGate || !CoursesGate.unlocked()) return;
         const root = document.getElementById("hub");
         const courses = (CATALOG && CATALOG.courses) || [];
         root.innerHTML = `
@@ -29,7 +27,6 @@
               <h1>${CATALOG.title}</h1>
               <p class="lead">${CATALOG.blurb}</p>
             </div>
-            <button class="out" type="button" id="out">Log out</button>
           </div>
           <div class="grid">
             ${courses
@@ -50,10 +47,6 @@
           </div>
           <p class="how">Each course lives in its own folder, such as <code>/courses/pairwise-v4/</code>.</p>
         `;
-        document.getElementById("out").addEventListener("click", function () {
-          CoursesGate.lock();
-          location.reload();
-        });
       })();
     </script>
   </body>

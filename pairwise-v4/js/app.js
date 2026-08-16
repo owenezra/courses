@@ -132,7 +132,10 @@
         <header class="top">
           <div class="top-inner">
             <div class="brand">
-              <a class="home" href="../">All courses</a>
+              <div class="brand-nav">
+                <a class="home" href="../">All courses</a>
+                <button class="home out" type="button" data-lock="1">Log out</button>
+              </div>
               <strong>${esc(COURSE.title)}</strong>
               <span>${esc(COURSE.blurb)}</span>
             </div>
@@ -748,6 +751,12 @@
   }
 
   function bind(s) {
+    root.querySelectorAll("[data-lock]").forEach((el) => {
+      el.addEventListener("click", () => {
+        if (window.CoursesGate) CoursesGate.lock();
+        location.reload();
+      });
+    });
     root.querySelectorAll("[data-go]").forEach((el) => {
       el.addEventListener("click", () => go(Number(el.dataset.go)));
     });

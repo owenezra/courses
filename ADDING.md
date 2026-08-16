@@ -12,11 +12,13 @@ Each course is a folder under this repo. GitHub Pages serves this repo at `https
 
 1. Create a folder. Use a short slug: `pairwise-v4-studio`, `next-v2`, and so on.
 2. Put the course `index.html` in that folder.
-3. Add this line in the `<head>` so the lock works:
+3. If this course should be locked, add this line in the `<head>`:
 
 ```html
 <script src="../shared/gate.js"></script>
 ```
+
+The catalog at `/courses/` stays open. Only pages that load `gate.js` ask for a password.
 
 4. Register it in `catalog.js`:
 
@@ -32,4 +34,4 @@ Each course is a folder under this repo. GitHub Pages serves this repo at `https
 
 Use `status: "soon"` to show a card that is not yet a link.
 
-The hub and every child page share one password. The password is not stored in this file.
+The password is not stored in this file.

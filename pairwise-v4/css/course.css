@@ -126,9 +126,18 @@ button {
   gap: 0.05rem;
 }
 
+.brand-nav {
+  display: flex;
+  gap: 0.85rem;
+  margin-bottom: 0.15rem;
+}
+
 .home {
   width: fit-content;
-  margin-bottom: 0.15rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
   color: var(--macaw);
   font-size: 0.8rem;
   font-weight: 800;

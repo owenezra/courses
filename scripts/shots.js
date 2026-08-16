@@ -10,13 +10,14 @@ const path = require("path");
   const dir = "/tmp/courses-shots";
   const fs = require("fs");
   fs.mkdirSync(dir, { recursive: true });
-  await page.screenshot({ path: path.join(dir, "00-lock.png"), fullPage: true });
-  await page.locator("#gate-pass").fill("Pairwise2026!");
-  await page.getByRole("button", { name: "Open" }).click();
   await page.getByRole("heading", { name: "Courses" }).waitFor();
   await page.screenshot({ path: path.join(dir, "00-hub.png"), fullPage: true });
   await page.getByRole("link", { name: "Pairwise v4" }).click();
   await page.waitForURL("**/pairwise-v4/**");
+  await page.screenshot({ path: path.join(dir, "00-lock.png"), fullPage: true });
+  await page.locator("#gate-pass").fill("Pairwise2026!");
+  await page.getByRole("button", { name: "Open" }).click();
+  await page.getByRole("heading", { name: /Start with a call/ }).waitFor();
   await page.screenshot({ path: path.join(dir, "01-open.png"), fullPage: true });
 
   const cards = page.locator("article.card");

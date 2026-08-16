@@ -4,7 +4,7 @@ A catalog of short primers. Live at [learning.voyage/courses](https://learning.v
 
 Each course is a child of that path. The first course is [Pairwise v4](https://learning.voyage/courses/pairwise-v4/).
 
-The catalog and every course are password locked. Use the same password as the other Pairwise course.
+The catalog is open. Pairwise v4 is password locked. Use the same password as the other Pairwise course.
 
 ## Local
 
