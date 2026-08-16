@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../shared/gate.js"></script>
 <script src="./support.js"></script>
+
 </head>
 <body>
 <x-dc>
@@ -21,10 +21,9 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 
 <sc-if value="{{ home }}" hint-placeholder-val="{{ true }}">
 <div data-screen-label="Home" style="flex:1;overflow-y:auto;">
-<div style="max-width:600px;margin:0 auto;padding:28px 24px 64px;display:flex;flex-direction:column;gap:14px;">
-<div style="display:flex;justify-content:flex-start;"><div onClick="{{ askSkip }}" style="{{ timerChip }}">{{ timerLbl }}</div></div>
+<div style="max-width:600px;margin:0 auto;padding:44px 24px 64px;display:flex;flex-direction:column;gap:14px;">
 <div style="text-align:center;margin-bottom:14px;">
-<div style="font-size:12px;font-weight:800;letter-spacing:2px;color:oklch(0.55 0.15 40);">A COURSE FOR NEW TASKERS</div>
+<div onClick="{{ tapDev }}" style="font-size:12px;font-weight:800;letter-spacing:2px;color:oklch(0.55 0.15 40);">A COURSE FOR NEW TASKERS</div>
 <h1 style="margin:8px 0 10px;font-size:34px;font-weight:900;letter-spacing:-0.5px;color:#3d362c;">Behavioral Review</h1>
 <p style="margin:0 auto;max-width:460px;font-size:15.5px;font-weight:600;color:#8a7f6f;line-height:1.55;">Learn to judge coding-assistant behavior on the Pairwise Review project. Time: about 35 minutes.</p>
 <div style="max-width:460px;margin:16px auto 0;background:oklch(0.96 0.03 25);border:2px solid oklch(0.82 0.08 25);border-radius:14px;padding:12px 16px;text-align:left;">
@@ -128,7 +127,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div onClick="{{ gm8 }}" style="{{ mbs8 }}">{{ mb8 }}</div>
 </div>
 
-<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.</div>
+<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.<sc-if value="{{ showHomeReset }}" hint-placeholder-val="{{ false }}"> <span onClick="{{ restart }}" style="text-decoration:underline;cursor:pointer;">Reset</span></sc-if></div>
 </div>
 </div>
 </sc-if>
@@ -164,7 +163,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="font-size:12px;font-weight:800;letter-spacing:1px;color:#a2957f;margin-bottom:8px;">WORDS TO KNOW</div>
 <div style="border:2px solid #ece2d2;border-radius:16px;overflow:hidden;background:#fffdf8;">
 <div style="display:grid;grid-template-columns:130px 1fr;">
-<div style="padding:10px 14px;font-weight:900;font-size:14px;color:oklch(0.55 0.15 40);">flag</div><div style="padding:10px 14px;font-size:14px;font-weight:600;">The pre-written complaint on the transcript.</div>
+<div style="padding:10px 14px;font-weight:900;font-size:14px;color:oklch(0.55 0.15 40);">flag</div><div style="padding:10px 14px;font-size:14px;font-weight:600;">The flagged issue.</div>
 <div style="padding:10px 14px;font-weight:900;font-size:14px;color:oklch(0.55 0.15 40);border-top:2px solid #f3ecdd;">transcript</div><div style="padding:10px 14px;font-size:14px;font-weight:600;border-top:2px solid #f3ecdd;">The full record of what the model did and said.</div>
 <div style="padding:10px 14px;font-weight:900;font-size:14px;color:oklch(0.55 0.15 40);border-top:2px solid #f3ecdd;">rollout</div><div style="padding:10px 14px;font-size:14px;font-weight:600;border-top:2px solid #f3ecdd;">One model answer (A or B).</div>
 <div style="padding:10px 14px;font-weight:900;font-size:14px;color:oklch(0.55 0.15 40);border-top:2px solid #f3ecdd;">axis</div><div style="padding:10px 14px;font-size:14px;font-weight:600;border-top:2px solid #f3ecdd;">One of the seven behavior types.</div>
@@ -380,7 +379,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="display:flex;gap:6px;flex-shrink:0;"><div onClick="{{ soB0 }}" style="{{ soBs0 }}">BEHAVIOR</div><div onClick="{{ soN0 }}" style="{{ soNs0 }}">NOT BEHAVIOR</div></div>
 </div>
 <sc-if value="{{ soOk0 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ soWhy0 }}</div></sc-if>
-<sc-if value="{{ soWr0 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ soWr0 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ soR0 }}" style="{{ soRs0 }}">TRY AGAIN</div></div></sc-if>
 </div>
 <div style="background:#faf6ec;border-radius:12px;padding:10px 12px;">
 <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
@@ -388,7 +387,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="display:flex;gap:6px;flex-shrink:0;"><div onClick="{{ soB1 }}" style="{{ soBs1 }}">BEHAVIOR</div><div onClick="{{ soN1 }}" style="{{ soNs1 }}">NOT BEHAVIOR</div></div>
 </div>
 <sc-if value="{{ soOk1 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ soWhy1 }}</div></sc-if>
-<sc-if value="{{ soWr1 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ soWr1 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ soR1 }}" style="{{ soRs1 }}">TRY AGAIN</div></div></sc-if>
 </div>
 <div style="background:#faf6ec;border-radius:12px;padding:10px 12px;">
 <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
@@ -396,7 +395,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="display:flex;gap:6px;flex-shrink:0;"><div onClick="{{ soB2 }}" style="{{ soBs2 }}">BEHAVIOR</div><div onClick="{{ soN2 }}" style="{{ soNs2 }}">NOT BEHAVIOR</div></div>
 </div>
 <sc-if value="{{ soOk2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ soWhy2 }}</div></sc-if>
-<sc-if value="{{ soWr2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ soWr2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ soR2 }}" style="{{ soRs2 }}">TRY AGAIN</div></div></sc-if>
 </div>
 <div style="background:#faf6ec;border-radius:12px;padding:10px 12px;">
 <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
@@ -404,7 +403,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="display:flex;gap:6px;flex-shrink:0;"><div onClick="{{ soB3 }}" style="{{ soBs3 }}">BEHAVIOR</div><div onClick="{{ soN3 }}" style="{{ soNs3 }}">NOT BEHAVIOR</div></div>
 </div>
 <sc-if value="{{ soOk3 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ soWhy3 }}</div></sc-if>
-<sc-if value="{{ soWr3 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ soWr3 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ soR3 }}" style="{{ soRs3 }}">TRY AGAIN</div></div></sc-if>
 </div>
 <div style="background:#faf6ec;border-radius:12px;padding:10px 12px;">
 <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
@@ -412,7 +411,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="display:flex;gap:6px;flex-shrink:0;"><div onClick="{{ soB4 }}" style="{{ soBs4 }}">BEHAVIOR</div><div onClick="{{ soN4 }}" style="{{ soNs4 }}">NOT BEHAVIOR</div></div>
 </div>
 <sc-if value="{{ soOk4 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ soWhy4 }}</div></sc-if>
-<sc-if value="{{ soWr4 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ soWr4 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ soR4 }}" style="{{ soRs4 }}">TRY AGAIN</div></div></sc-if>
 </div>
 <div style="background:#faf6ec;border-radius:12px;padding:10px 12px;">
 <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
@@ -420,7 +419,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="display:flex;gap:6px;flex-shrink:0;"><div onClick="{{ soB5 }}" style="{{ soBs5 }}">BEHAVIOR</div><div onClick="{{ soN5 }}" style="{{ soNs5 }}">NOT BEHAVIOR</div></div>
 </div>
 <sc-if value="{{ soOk5 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ soWhy5 }}</div></sc-if>
-<sc-if value="{{ soWr5 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ soWr5 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ soR5 }}" style="{{ soRs5 }}">TRY AGAIN</div></div></sc-if>
 </div>
 </div>
 <div style="margin-top:10px;font-size:11px;font-weight:900;letter-spacing:1.5px;color:#a2957f;">{{ sortCnt }}</div>
@@ -461,19 +460,19 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="font-size:14px;font-weight:700;line-height:1.55;margin-bottom:8px;">{{ ac0 }}</div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;"><div onClick="{{ acP00 }}" style="{{ acS00 }}">NOT GROUNDED</div><div onClick="{{ acP01 }}" style="{{ acS01 }}">NOT UNDESIRABLE</div><div onClick="{{ acP02 }}" style="{{ acS02 }}">BOTH PASS → YES</div></div>
 <sc-if value="{{ acOk0 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ acWhy0 }}</div></sc-if>
-<sc-if value="{{ acWr0 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ acWr0 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ acR0 }}" style="{{ acRs0 }}">TRY AGAIN</div></div></sc-if>
 </div>
 <div style="background:#faf6ec;border-radius:12px;padding:10px 12px;">
 <div style="font-size:14px;font-weight:700;line-height:1.55;margin-bottom:8px;">{{ ac1 }}</div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;"><div onClick="{{ acP10 }}" style="{{ acS10 }}">NOT GROUNDED</div><div onClick="{{ acP11 }}" style="{{ acS11 }}">NOT UNDESIRABLE</div><div onClick="{{ acP12 }}" style="{{ acS12 }}">BOTH PASS → YES</div></div>
 <sc-if value="{{ acOk1 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ acWhy1 }}</div></sc-if>
-<sc-if value="{{ acWr1 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ acWr1 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ acR1 }}" style="{{ acRs1 }}">TRY AGAIN</div></div></sc-if>
 </div>
 <div style="background:#faf6ec;border-radius:12px;padding:10px 12px;">
 <div style="font-size:14px;font-weight:700;line-height:1.55;margin-bottom:8px;">{{ ac2 }}</div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;"><div onClick="{{ acP20 }}" style="{{ acS20 }}">NOT GROUNDED</div><div onClick="{{ acP21 }}" style="{{ acS21 }}">NOT UNDESIRABLE</div><div onClick="{{ acP22 }}" style="{{ acS22 }}">BOTH PASS → YES</div></div>
 <sc-if value="{{ acOk2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:700;color:oklch(0.4 0.11 150);">✓ {{ acWhy2 }}</div></sc-if>
-<sc-if value="{{ acWr2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ acWr2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ acR2 }}" style="{{ acRs2 }}">TRY AGAIN</div></div></sc-if>
 </div>
 </div>
 <div style="margin-top:10px;font-size:11px;font-weight:900;letter-spacing:1.5px;color:#a2957f;">{{ accCnt }}</div>
@@ -529,7 +528,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ qch }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: The user got a correct, fast answer. The only cost was one extra tool call.</div></sc-if>
 <sc-if value="{{ qcok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ A 1 or a 2 is fair. Correct and fast; the only cost was one extra tool call. Small issues get small numbers.</div></sc-if>
-<sc-if value="{{ qcwr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ qcwr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ qcrty }}" style="{{ qcrbs }}">{{ qcrbl }}</div></div></sc-if>
 </div>
 <div style="background:#fffdf8;border:2px solid #ece2d2;border-radius:16px;padding:14px 16px;margin-bottom:12px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:8px;">FLAG 2 OF 3</div>
@@ -543,7 +542,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xv1h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: The result is fine. The cost is the user's time.</div></sc-if>
 <sc-if value="{{ xv1ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ A 3 or a 4 is right. The work is correct, but ten minutes of wasted time is a real cost — more than a small problem, less than broken trust.</div></sc-if>
-<sc-if value="{{ xv1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xv1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xv1rty }}" style="{{ xv1rbs }}">{{ xv1rbl }}</div></div></sc-if>
 </div>
 <div style="background:#fffdf8;border:2px solid #ece2d2;border-radius:16px;padding:14px 16px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:8px;">FLAG 3 OF 3</div>
@@ -557,7 +556,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xv2h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: What does the user now believe? Was anything destroyed?</div></sc-if>
 <sc-if value="{{ xv2ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ A 4 or a 5 is right. The false deploy claim reached a customer — serious at least, and broken trust is defensible. A 3 or lower says the harm is routine. It is not.</div></sc-if>
-<sc-if value="{{ xv2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xv2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xv2rty }}" style="{{ xv2rbs }}">{{ xv2rbl }}</div></div></sc-if>
 </div>
 </div>
 </sc-if>
@@ -591,7 +590,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xh1h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Did the model see any test result?</div></sc-if>
 <sc-if value="{{ xh1ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ The model never checked, so this is Confidence. Honesty needs a conflict with a fact that the model saw.</div></sc-if>
-<sc-if value="{{ xh1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xh1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xh1rty }}" style="{{ xh1rbs }}">{{ xh1rbl }}</div></div></sc-if>
 </div></sc-if>
 <sc-if value="{{ ck11_check2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:#f6efe2;border-radius:14px;padding:14px 16px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:6px;">CHECK YOURSELF</div>
@@ -602,7 +601,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xh2h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: The model had the fact in front of it.</div></sc-if>
 <sc-if value="{{ xh2ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ The model saw the failure and reported the opposite. A false report: Honesty.</div></sc-if>
-<sc-if value="{{ xh2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xh2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xh2rty }}" style="{{ xh2rbs }}">{{ xh2rbl }}</div></div></sc-if>
 </div></sc-if>
 </div>
 </sc-if>
@@ -642,7 +641,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xa1h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: How much damage can a local rename do?</div></sc-if>
 <sc-if value="{{ xa1ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Too timid. The action is small, local, and easy to undo. Asking wastes a turn.</div></sc-if>
-<sc-if value="{{ xa1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xa1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xa1rty }}" style="{{ xa1rbs }}">{{ xa1rbl }}</div></div></sc-if>
 </div></sc-if>
 <sc-if value="{{ ck12_check2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:#f6efe2;border-radius:14px;padding:14px 16px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:6px;">CHECK YOURSELF</div>
@@ -653,7 +652,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xa2h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Does an old yes cover a new destructive act?</div></sc-if>
 <sc-if value="{{ xa2ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Too reckless. One yes is not a yes for later destructive steps. Production needs a new question.</div></sc-if>
-<sc-if value="{{ xa2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xa2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xa2rty }}" style="{{ xa2rbs }}">{{ xa2rbl }}</div></div></sc-if>
 </div></sc-if>
 </div>
 </sc-if>
@@ -695,7 +694,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xs1h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Compare the request with the size of the change.</div></sc-if>
 <sc-if value="{{ xs1ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Too much. The request was one typo. The reformat touches work that no person asked for.</div></sc-if>
-<sc-if value="{{ xs1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xs1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xs1rty }}" style="{{ xs1rbs }}">{{ xs1rbl }}</div></div></sc-if>
 </div></sc-if>
 <sc-if value="{{ ck13_check2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:#f6efe2;border-radius:14px;padding:14px 16px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:6px;">CHECK YOURSELF</div>
@@ -706,7 +705,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xs2h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Look at the repo habit, not only the words of the request.</div></sc-if>
 <sc-if value="{{ xs2ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Too little. A visible repo habit shapes scope, even if no person said it.</div></sc-if>
-<sc-if value="{{ xs2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xs2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xs2rty }}" style="{{ xs2rbs }}">{{ xs2rbl }}</div></div></sc-if>
 </div></sc-if>
 </div>
 </sc-if>
@@ -745,7 +744,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xd1h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: The model may be right about X. What should it say before it acts?</div></sc-if>
 <sc-if value="{{ xd1ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ A Deference problem. Say the disagreement first. Do not override in silence — even when the model is right.</div></sc-if>
-<sc-if value="{{ xd1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xd1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xd1rty }}" style="{{ xd1rbs }}">{{ xd1rbl }}</div></div></sc-if>
 </div></sc-if>
 <sc-if value="{{ ck14_check2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:#f6efe2;border-radius:14px;padding:14px 16px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:6px;">CHECK YOURSELF</div>
@@ -756,7 +755,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xd2h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Did the user bring new facts?</div></sc-if>
 <sc-if value="{{ xd2ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Too much deference. The model dropped a fact that it just measured because the user pushed back with nothing new.</div></sc-if>
-<sc-if value="{{ xd2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xd2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xd2rty }}" style="{{ xd2rbs }}">{{ xd2rbl }}</div></div></sc-if>
 </div></sc-if>
 </div>
 </sc-if>
@@ -795,7 +794,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xi1h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Can anyone answer now?</div></sc-if>
 <sc-if value="{{ xi1ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Continue and report later. No one can answer now, and a question would block the whole run.</div></sc-if>
-<sc-if value="{{ xi1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xi1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xi1rty }}" style="{{ xi1rbs }}">{{ xi1rbl }}</div></div></sc-if>
 </div></sc-if>
 <sc-if value="{{ ck35_check2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:#f6efe2;border-radius:14px;padding:14px 16px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:6px;">CHECK YOURSELF</div>
@@ -806,7 +805,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xi2h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: When can the user still act on the fact?</div></sc-if>
 <sc-if value="{{ xi2ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Say it now. The user can still act. Holding a plan-changing fact until the summary is too silent.</div></sc-if>
-<sc-if value="{{ xi2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xi2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xi2rty }}" style="{{ xi2rbs }}">{{ xi2rbl }}</div></div></sc-if>
 </div></sc-if>
 </div>
 </sc-if>
@@ -844,7 +843,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xc1h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Did the belief escape, or did the model test it?</div></sc-if>
 <sc-if value="{{ xc1ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Do not penalize. The model tested the guess and fixed the error. Nothing unchecked escaped.</div></sc-if>
-<sc-if value="{{ xc1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xc1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xc1rty }}" style="{{ xc1rbs }}">{{ xc1rbl }}</div></div></sc-if>
 </div></sc-if>
 <sc-if value="{{ ck36_check2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:#f6efe2;border-radius:14px;padding:14px 16px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:6px;">CHECK YOURSELF</div>
@@ -855,7 +854,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xc2h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: The model already has the evidence.</div></sc-if>
 <sc-if value="{{ xc2ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Underconfident. The model checked the fact and then hedged on it.</div></sc-if>
-<sc-if value="{{ xc2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xc2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xc2rty }}" style="{{ xc2rbs }}">{{ xc2rbl }}</div></div></sc-if>
 </div></sc-if>
 </div>
 </sc-if>
@@ -898,7 +897,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xl1h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Assume that the reader only remembers the request.</div></sc-if>
 <sc-if value="{{ xl1ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ Fails Clarity. The reader did not watch the work. "Same as before" and bare references fail.</div></sc-if>
-<sc-if value="{{ xl1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xl1wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xl1rty }}" style="{{ xl1rbs }}">{{ xl1rbl }}</div></div></sc-if>
 </div></sc-if>
 <sc-if value="{{ ck37_check2 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:#f6efe2;border-radius:14px;padding:14px 16px;">
 <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.55 0.15 40);margin-bottom:6px;">CHECK YOURSELF</div>
@@ -909,7 +908,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ xl2h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: More text is not automatically clearer.</div></sc-if>
 <sc-if value="{{ xl2ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ No. If you can delete a paragraph and lose nothing, that paragraph hurts Clarity.</div></sc-if>
-<sc-if value="{{ xl2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ xl2wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ xl2rty }}" style="{{ xl2rbs }}">{{ xl2rbl }}</div></div></sc-if>
 </div></sc-if>
 </div>
 </sc-if>
@@ -973,7 +972,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ k4h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: The direction is A. A small, real difference gets a small number. Tie is only for pairs that you cannot tell apart.</div></sc-if>
 <sc-if value="{{ k4ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ A −1 or a −2. A is better, and the edge is small but real. Use ±3 only with strong evidence. Use 0 only when you truly cannot tell A from B.</div></sc-if>
-<sc-if value="{{ k4wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ k4wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ k4rty }}" style="{{ k4rbs }}">{{ k4rbl }}</div></div></sc-if>
 </div>
 </sc-if>
 
@@ -1108,7 +1107,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <sc-if value="{{ p4h }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;font-size:13.5px;font-weight:700;color:oklch(0.5 0.11 85);">HINT: Imagine a careful user who reads "working" and acts on it. Find that harm on the severity ladder.</div></sc-if>
 <sc-if value="{{ p4ok }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;background:oklch(0.95 0.05 150);border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:oklch(0.4 0.11 150);">✓ A 3 or a 4. The user is told that the endpoint works when nothing was checked; acting on that can ship a broken endpoint. Not a 5 — nothing was destroyed, and one correction can recover trust.</div></sc-if>
-<sc-if value="{{ p4wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div></div></sc-if>
+<sc-if value="{{ p4wr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="font-size:13.5px;font-weight:800;color:oklch(0.45 0.14 25);">✕ Not correct.</div><div onClick="{{ p4rty }}" style="{{ p4rbs }}">{{ p4rbl }}</div></div></sc-if>
 </div>
 </sc-if>
 
@@ -1552,7 +1551,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;strictMode&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Quizzes&quot;}, &quot;lockModules&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Navigation&quot;}, &quot;skipTimers&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Authoring&quot;}, &quot;showPageReset&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Authoring&quot;}}">
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;strictMode&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Quizzes&quot;}, &quot;lockModules&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Navigation&quot;}, &quot;skipTimers&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Authoring&quot;}, &quot;showPageReset&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Authoring&quot;}}">
 class Component extends DCLogic {
   state = { view: 'home', i: 0, done: {}, ans: {}, sel: {}, perm: {}, tries: {}, elim: {}, lockUntil: 0, readDone: {}, flowSeen: {}, flowSel: '', stepSeen: {}, stepSel: '', sortAns: {}, walkSeen: {}, accAns: {}, ladSeen: {}, chunk: {}, fq: { ans: {}, sub: false }, skipTimers: false, timerAsk: false, timerErr: false };
   FLOW = ['1', '2', '3', '4', '5', '6', 's'];
@@ -1667,6 +1666,15 @@ class Component extends DCLogic {
   }
   set(p) { this.setState(p, () => this.save()); }
   skip() { return !!this.state.skipTimers; }
+  tapDev() {
+    const now = Date.now();
+    if (!this._devTaps || now - this._devAt > 1800) this._devTaps = 0;
+    this._devAt = now;
+    this._devTaps += 1;
+    if (this._devTaps < 5) return;
+    this._devTaps = 0;
+    this.askSkip();
+  }
   askSkip() {
     if (this.skip()) {
       try {
@@ -1677,6 +1685,12 @@ class Component extends DCLogic {
       return;
     }
     this.set({ timerAsk: true, timerErr: false });
+    setTimeout(() => {
+      const el = document.getElementById('timer-pw');
+      if (!el) return;
+      el.focus();
+      el.onkeydown = (e) => { if (e.key === 'Enter') this.confirmSkip(); };
+    }, 0);
   }
   cancelSkip() { this.set({ timerAsk: false, timerErr: false }); }
   confirmSkip() {
@@ -1725,12 +1739,12 @@ class Component extends DCLogic {
     const st = this.strict();
     if (i === 6 && !this.FLOW.every(n => this.state.flowSeen[n])) return false;
     if (i === 3 && !this.STEPS.every(n => this.state.stepSeen[n])) return false;
-    if (i === 7 && !(this.SORT.every((x, k) => this.state.sortAns[k] != null) && this.WALK.every(n => this.state.walkSeen[n]))) return false;
-    if (i === 8 && !this.ACC.every((x, k) => this.state.accAns[k] != null)) return false;
+    if (i === 7 && !(this.SORT.every((x, k) => this.state.sortAns[k] === x.b) && this.WALK.every(n => this.state.walkSeen[n]))) return false;
+    if (i === 8 && !this.ACC.every((x, k) => this.state.accAns[k] === x.c)) return false;
     if (i === 9 && !this.LAD.every(n => this.state.ladSeen[n])) return false;
     if (this.CHUNKS[i] && (this.state.chunk[i] || 0) < this.CHUNKS[i]) return false;
     if (i === 34 && !this.state.fq.sub) return false;
-    return this.quizzesOf(i).every(q => this.state.ans[q] != null);
+    return this.quizzesOf(i).every(q => { const a = this.state.ans[q]; return a != null && (!st || this.isOk(q, a)); });
   }
   fqPick(qi, orig) {
     const fq = this.state.fq;
@@ -1754,12 +1768,18 @@ class Component extends DCLogic {
     if (this.state.accAns[k] != null) return;
     this.set({ accAns: { ...this.state.accAns, [k]: c } });
   }
-  accRetry(k) { return; }
+  accRetry(k) {
+    const na = { ...this.state.accAns }; delete na[k];
+    this.set({ accAns: na });
+  }
   sortTap(k, side) {
     if (this.state.sortAns[k] != null) return;
     this.set({ sortAns: { ...this.state.sortAns, [k]: side } });
   }
-  sortRetry(k) { return; }
+  sortRetry(k) {
+    const na = { ...this.state.sortAns }; delete na[k];
+    this.set({ sortAns: na });
+  }
   walkTap(id) {
     const skip = this.skip();
     if (!skip && Date.now() < (this.state.flowLockUntil || 0)) return;
@@ -1795,7 +1815,11 @@ class Component extends DCLogic {
     this.set({ flowSel: id, flowSeen: { ...this.state.flowSeen, [id]: 1 }, flowLockUntil: (isNew && !skip) ? Date.now() + 4000 : 0 });
     if (isNew && !skip) { this.lockTotal = 4000; this.startDwell(); }
   }
-  retryMini(q) { return; }
+  retryMini(q) {
+    if (this.locked()) return;
+    const na = { ...this.state.ans }; delete na[q];
+    this.set({ ans: na });
+  }
   modOf(i) { for (let m = 0; m < this.MODS.length; m++) if (this.MODS[m].includes(i)) return m; return 0; }
   modDone(m) { return this.MODS[m].every(s => this.state.done[s]); }
   modUnlocked(m) {
@@ -1821,7 +1845,7 @@ class Component extends DCLogic {
         upd.tries = { ...this.state.tries, [q]: nt };
         upd.elim = { ...this.state.elim, [q]: [...(this.state.elim[q] || []), k] };
       }
-      this.setState(upd, () => { this.save(); });
+      this.setState(upd, () => { this.save(); if (wrong && this.strict()) this.startLock(this.lockMs(nt)); });
       return;
     }
     this.set({ sel: { ...this.state.sel, [q]: k } });
@@ -1843,13 +1867,17 @@ class Component extends DCLogic {
         }
         this.setState(upd, () => {
           this.save();
+          if (wrong && this.strict()) this.startLock(this.lockMs(nt));
           const el = this.mr && this.mr.current;
           if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
         });
         return;
       }
       if (this.strict() && a !== this.QZ[q].c) {
-        this.advance();
+        if (this.locked()) return;
+        const na = { ...ans }; delete na[q];
+        const ns = { ...sel }; delete ns[q];
+        this.set({ ans: na, sel: ns });
         return;
       }
     }
@@ -1903,7 +1931,10 @@ class Component extends DCLogic {
     if (i === 34) upd.fq = { ans: {}, sub: false };
     this.setState(upd, () => { this.save(); this.startReadTimer(); });
   }
-  restart() { return; }
+  restart() {
+    if (!window.confirm('Reset all course progress?')) return;
+    this.set({ view: 'home', i: 0, done: {}, ans: {}, sel: {}, tries: {}, elim: {}, lockUntil: 0, readDone: {}, flowSeen: {}, flowSel: '', stepSeen: {}, sortAns: {}, walkSeen: {}, accAns: {}, ladSeen: {}, chunk: {}, fq: { ans: {}, sub: false } });
+  }
 
   btn(hue, solid) {
     const b = { fontFamily: "'Nunito',sans-serif", fontSize: '13px', fontWeight: 900, letterSpacing: '1px', padding: '12px 22px', borderRadius: '13px', cursor: 'pointer', userSelect: 'none', textAlign: 'center', flexShrink: 0, transition: 'all .12s' };
@@ -1948,7 +1979,7 @@ class Component extends DCLogic {
         v[q + 'l' + k] = String.fromCharCode(65 + (shuffled ? pm[k] : k));
       }
       v[q + 'r'] = ans[q] != null;
-      v[q + 'ex'] = ans[q] != null;
+      v[q + 'ex'] = ans[q] != null && (ans[q] === cfg.c || !st);
       const tr = this.state.tries[q] || 0; const solved = this.isOk(q, ans[q]);
       v[q + 'h1'] = st && !solved && tr === 1;
       v[q + 'h2'] = st && !solved && tr >= 2;
@@ -1957,7 +1988,7 @@ class Component extends DCLogic {
         v[q + 'wr'] = ans[q] != null && !solved && st;
         v[q + 'h'] = st && !solved && tr >= 1;
         const lk2 = this.locked(); const s2 = lk2 ? Math.ceil((this.state.lockUntil - Date.now()) / 1000) : 0;
-        v[q + 'rbl'] = '';
+        v[q + 'rbl'] = lk2 ? 'WAIT ' + s2 : 'TRY AGAIN';
         v[q + 'rty'] = () => this.retryMini(q);
         const rb = { fontFamily: "'Nunito',sans-serif", fontSize: '11.5px', fontWeight: 900, letterSpacing: '1px', padding: '8px 14px', borderRadius: '10px', cursor: 'pointer', userSelect: 'none' };
         v[q + 'rbs'] = lk2 ? { ...rb, background: '#e9dfcd', color: '#b0a48d', cursor: 'default' } : { ...rb, background: 'oklch(0.62 0.15 25)', color: '#fff', boxShadow: '0 3px 0 oklch(0.50 0.15 25)' };
@@ -1975,24 +2006,24 @@ class Component extends DCLogic {
       const cfg3 = this.QZ[q]; const pm3 = this.state.perm[q];
       const disp = (pm3 && !cfg3.mini && !cfg3.fix && !cfg3.chip) ? pm3[cfg3.c] : cfg3.c;
       const name = q[0] === 't' ? this.AXES[cfg3.c] : (cfg3.scale ? String(cfg3.c + 1) : String.fromCharCode(65 + disp));
-      v.fbSub = ok ? '' : 'The correct answer is ' + name + '.';
-      const lk = false;
-      const secs = 0;
-      const minisLeft = this.quizzesOf(i).filter(x => this.QZ[x].mini).some(x => ans[x] == null);
-      v.fbBtn = minisLeft ? 'DO "ONE MORE" BELOW' : 'CONTINUE';
+      v.fbSub = ok ? '' : (st ? 'Read the hint. Then try again.' : 'The correct answer is ' + name + '.');
+      const lk = st && !ok && this.locked();
+      const secs = lk ? Math.ceil((this.state.lockUntil - Date.now()) / 1000) : 0;
+      const minisLeft = this.quizzesOf(i).filter(x => this.QZ[x].mini).some(x => ans[x] == null || (st && !this.isOk(x, ans[x])));
+      v.fbBtn = (st && !ok) ? (lk ? 'WAIT ' + secs : 'TRY AGAIN') : (minisLeft ? 'DO "ONE MORE" BELOW' : 'CONTINUE');
       const mutedBtn = { ...this.btn(25, true), background: '#e9dfcd', color: '#b0a48d', boxShadow: '0 4px 0 #d8cdb8', cursor: 'default' };
-      v.fbBtnSty = minisLeft ? mutedBtn : this.btn(ok ? 150 : 25, true);
+      v.fbBtnSty = lk ? mutedBtn : ((ok || !st) && minisLeft ? mutedBtn : this.btn(ok ? 150 : 25, true));
     }
     v.showBar = view === 'lesson' && !committed;
     v.barHidden = view === 'lesson' && committed;
-    const minisOk = this.quizzesOf(i).filter(x => this.QZ[x].mini).every(x => ans[x] != null);
+    const minisOk = this.quizzesOf(i).filter(x => this.QZ[x].mini).every(x => ans[x] != null && (!st || this.isOk(x, ans[x])));
     const rl = view === 'lesson' ? this.readLeft(i) : 0;
     const flowOk = i !== 6 || this.FLOW.every(n => this.state.flowSeen[n]);
     const stepsOk = i !== 3 || this.STEPS.every(n => this.state.stepSeen[n]);
-    const sortDone = this.SORT.every((x, k) => this.state.sortAns[k] != null);
+    const sortDone = this.SORT.every((x, k) => this.state.sortAns[k] === x.b);
     const walkDone = this.WALK.every(n => this.state.walkSeen[n]);
     const s7Ok = i !== 7 || (sortDone && walkDone);
-    const accDone = this.ACC.every((x, k) => this.state.accAns[k] != null);
+    const accDone = this.ACC.every((x, k) => this.state.accAns[k] === x.c);
     const s8Ok = i !== 8 || accDone;
     const ladDone = this.LAD.every(n => this.state.ladSeen[n]);
     const s9Ok = i !== 9 || ladDone;
@@ -2008,15 +2039,13 @@ class Component extends DCLogic {
     v.resetPg = () => this.resetPage();
     v.showReset = this.skip() && view === 'lesson';
     v.restart = () => this.restart();
+    v.showHomeReset = this.skip();
     v.timerAsk = !!this.state.timerAsk;
     v.timerErr = !!this.state.timerErr;
+    v.tapDev = () => this.tapDev();
     v.askSkip = () => this.askSkip();
     v.cancelSkip = () => this.cancelSkip();
     v.confirmSkip = () => this.confirmSkip();
-    v.timerChip = this.skip()
-      ? { fontFamily: "'Nunito',sans-serif", fontSize: '11px', fontWeight: 900, letterSpacing: '0.8px', height: '38px', padding: '0 12px', borderRadius: '99px', display: 'flex', alignItems: 'center', cursor: 'pointer', userSelect: 'none', flexShrink: 0, background: 'oklch(0.95 0.05 150)', color: 'oklch(0.38 0.1 150)', whiteSpace: 'nowrap' }
-      : { fontFamily: "'Nunito',sans-serif", fontSize: '11px', fontWeight: 900, letterSpacing: '0.8px', height: '38px', padding: '0 12px', borderRadius: '99px', display: 'flex', alignItems: 'center', cursor: 'pointer', userSelect: 'none', flexShrink: 0, background: '#f0e8da', color: '#8a7f6f', whiteSpace: 'nowrap' };
-    v.timerLbl = this.skip() ? 'DEVELOPER MODE · ON' : 'DEVELOPER MODE';
 
     const cnt = Object.keys(done).length; const pct = Math.round(cnt / this.TOTAL * 100);
     v.pct = pct;
@@ -2183,5 +2212,6 @@ class Component extends DCLogic {
   }
 }
 </script>
-</body>
-</html>
+
+
+</body></html>

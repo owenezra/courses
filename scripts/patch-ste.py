@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
-"""Apply live-site customizations to a Design Canvas STE export."""
+"""Apply live-site customizations to a Design Canvas STE export.
+
+Accepts a Claude Design Canvas page or a Bundled Page HTML file.
+Keeps module TRY AGAIN. Final quiz stays one-shot. Developer mode is
+hidden: five clicks on the home eyebrow, then the developer password.
+"""
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -26,6 +32,15 @@ OVERLAY = r'''
 '''
 
 DEV_METHODS = """  skip() { return !!this.state.skipTimers; }
+  tapDev() {
+    const now = Date.now();
+    if (!this._devTaps || now - this._devAt > 1800) this._devTaps = 0;
+    this._devAt = now;
+    this._devTaps += 1;
+    if (this._devTaps < 5) return;
+    this._devTaps = 0;
+    this.askSkip();
+  }
   askSkip() {
     if (this.skip()) {
       try {
@@ -36,6 +51,12 @@ DEV_METHODS = """  skip() { return !!this.state.skipTimers; }
       return;
     }
     this.set({ timerAsk: true, timerErr: false });
+    setTimeout(() => {
+      const el = document.getElementById('timer-pw');
+      if (!el) return;
+      el.focus();
+      el.onkeydown = (e) => { if (e.key === 'Enter') this.confirmSkip(); };
+    }, 0);
   }
   cancelSkip() { this.set({ timerAsk: false, timerErr: false }); }
   confirmSkip() {
@@ -56,6 +77,12 @@ DEV_METHODS = """  skip() { return !!this.state.skipTimers; }
   }
 """ % DEV_HASH
 
+FONTS = (
+    '<link rel="preconnect" href="https://fonts.googleapis.com">'
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">'
+    '<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">\n'
+)
+
 
 def must_replace(text: str, old: str, new: str, label: str) -> str:
     if old not in text:
@@ -63,7 +90,43 @@ def must_replace(text: str, old: str, new: str, label: str) -> str:
     return text.replace(old, new, 1)
 
 
+def load_source(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    if '<script type="__bundler/template">' in text:
+        match = re.search(r'<script type="__bundler/template">(.*?)</script>', text, re.S)
+        if not match:
+            raise SystemExit("bundled page has no template")
+        text = json.loads(match.group(1).strip())
+    return text
+
+
+def normalize(text: str) -> str:
+    text = re.sub(
+        r'<script src="[0-9a-f-]{36}"></script>',
+        '<script src="./support.js"></script>',
+        text,
+        count=1,
+    )
+    text = text.replace("sc-camel-on-click=", "onClick=")
+    text = re.sub(
+        r'<link rel="preconnect" href="https://fonts\.googleapis\.com">.*?</style>\s*(<style>)',
+        FONTS + r"\1",
+        text,
+        count=1,
+        flags=re.S,
+    )
+    if "./support.js" not in text:
+        raise SystemExit("normalize: support.js script missing")
+    if "fonts.googleapis.com/css2?family=Nunito" not in text:
+        raise SystemExit("normalize: Nunito stylesheet missing")
+    if "sc-camel-on-click=" in text:
+        raise SystemExit("normalize: leftover sc-camel-on-click")
+    return text
+
+
 def patch(text: str, with_gate: bool) -> str:
+    text = normalize(text)
+
     if with_gate:
         text = must_replace(
             text,
@@ -74,32 +137,16 @@ def patch(text: str, with_gate: bool) -> str:
 
     text = must_replace(
         text,
-        '<div style="max-width:600px;margin:0 auto;padding:44px 24px 64px;display:flex;flex-direction:column;gap:14px;">\n<div style="text-align:center;margin-bottom:14px;">',
-        '<div style="max-width:600px;margin:0 auto;padding:28px 24px 64px;display:flex;flex-direction:column;gap:14px;">\n<div style="display:flex;justify-content:flex-start;"><div onClick="{{ askSkip }}" style="{{ timerChip }}">{{ timerLbl }}</div></div>\n<div style="text-align:center;margin-bottom:14px;">',
-        "home top button",
+        '<div style="font-size:12px;font-weight:800;letter-spacing:2px;color:oklch(0.55 0.15 40);">A COURSE FOR NEW TASKERS</div>',
+        '<div onClick="{{ tapDev }}" style="font-size:12px;font-weight:800;letter-spacing:2px;color:oklch(0.55 0.15 40);">A COURSE FOR NEW TASKERS</div>',
+        "hidden eyebrow tap",
     )
 
     text = must_replace(
         text,
         '<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device. <span onClick="{{ restart }}" style="text-decoration:underline;cursor:pointer;">Reset</span></div>',
-        '<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.</div>',
+        '<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.<sc-if value="{{ showHomeReset }}" hint-placeholder-val="{{ false }}"> <span onClick="{{ restart }}" style="text-decoration:underline;cursor:pointer;">Reset</span></sc-if></div>',
         "home reset",
-    )
-
-    text = re.sub(
-        r'(<div style="font-size:13px;font-weight:800;color:oklch\(0\.45 0\.14 25\);">✕ Not correct\.</div>)<div onClick="\{\{ soR\d \}\}" style="\{\{ soRs\d \}\}">TRY AGAIN</div>',
-        r"\1",
-        text,
-    )
-    text = re.sub(
-        r'(<div style="font-size:13px;font-weight:800;color:oklch\(0\.45 0\.14 25\);">✕ Not correct\.</div>)<div onClick="\{\{ acR\d \}\}" style="\{\{ acRs\d \}\}">TRY AGAIN</div>',
-        r"\1",
-        text,
-    )
-    text = re.sub(
-        r'(<div style="font-size:13\.5px;font-weight:800;color:oklch\(0\.45 0\.14 25\);">✕ Not correct\.</div>)<div onClick="\{\{ [a-z0-9]+rty \}\}" style="\{\{ [a-z0-9]+rbs \}\}">\{\{ [a-z0-9]+rbl \}\}</div>',
-        r"\1",
-        text,
     )
 
     text = must_replace(text, "</div>\n</x-dc>", OVERLAY + "\n</div>\n</x-dc>", "overlay")
@@ -129,47 +176,6 @@ def patch(text: str, with_gate: bool) -> str:
 
     text = must_replace(
         text,
-        "    if (i === 7 && !(this.SORT.every((x, k) => this.state.sortAns[k] === x.b) && this.WALK.every(n => this.state.walkSeen[n]))) return false;\n    if (i === 8 && !this.ACC.every((x, k) => this.state.accAns[k] === x.c)) return false;",
-        "    if (i === 7 && !(this.SORT.every((x, k) => this.state.sortAns[k] != null) && this.WALK.every(n => this.state.walkSeen[n]))) return false;\n    if (i === 8 && !this.ACC.every((x, k) => this.state.accAns[k] != null)) return false;",
-        "answered sort/acc",
-    )
-    text = must_replace(
-        text,
-        "    return this.quizzesOf(i).every(q => { const a = this.state.ans[q]; return a != null && (!st || this.isOk(q, a)); });",
-        "    return this.quizzesOf(i).every(q => this.state.ans[q] != null);",
-        "answered quizzes",
-    )
-
-    text = must_replace(
-        text,
-        """  accRetry(k) {
-    const na = { ...this.state.accAns }; delete na[k];
-    this.set({ accAns: na });
-  }""",
-        "  accRetry(k) { return; }",
-        "accRetry",
-    )
-    text = must_replace(
-        text,
-        """  sortRetry(k) {
-    const na = { ...this.state.sortAns }; delete na[k];
-    this.set({ sortAns: na });
-  }""",
-        "  sortRetry(k) { return; }",
-        "sortRetry",
-    )
-    text = must_replace(
-        text,
-        """  retryMini(q) {
-    if (this.locked()) return;
-    const na = { ...this.state.ans }; delete na[q];
-    this.set({ ans: na });
-  }""",
-        "  retryMini(q) { return; }",
-        "retryMini",
-    )
-    text = must_replace(
-        text,
         "  modUnlocked(m) {\n    if (!(this.props.lockModules ?? true)) return true;",
         "  modUnlocked(m) {\n    if (this.skip()) return true;\n    if (!(this.props.lockModules ?? true)) return true;",
         "modUnlocked",
@@ -177,117 +183,18 @@ def patch(text: str, with_gate: bool) -> str:
 
     text = must_replace(
         text,
-        """      this.setState(upd, () => { this.save(); if (wrong && this.strict()) this.startLock(this.lockMs(nt)); });""",
-        """      this.setState(upd, () => { this.save(); });""",
-        "mini lock",
-    )
-    text = must_replace(
-        text,
-        """        this.setState(upd, () => {
-          this.save();
-          if (wrong && this.strict()) this.startLock(this.lockMs(nt));
-          const el = this.mr && this.mr.current;
-          if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
-        });""",
-        """        this.setState(upd, () => {
-          this.save();
-          const el = this.mr && this.mr.current;
-          if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
-        });""",
-        "check lock",
-    )
-    text = must_replace(
-        text,
-        """      if (this.strict() && a !== this.QZ[q].c) {
-        if (this.locked()) return;
-        const na = { ...ans }; delete na[q];
-        const ns = { ...sel }; delete ns[q];
-        this.set({ ans: na, sel: ns });
-        return;
-      }""",
-        """      if (this.strict() && a !== this.QZ[q].c) {
-        this.advance();
-        return;
-      }""",
-        "primary retry",
-    )
-
-    text = must_replace(
-        text,
-        """  restart() {
-    if (!window.confirm('Reset all course progress?')) return;
-    this.set({ view: 'home', i: 0, done: {}, ans: {}, sel: {}, tries: {}, elim: {}, lockUntil: 0, readDone: {}, flowSeen: {}, flowSel: '', stepSeen: {}, sortAns: {}, walkSeen: {}, accAns: {}, ladSeen: {}, chunk: {}, fq: { ans: {}, sub: false } });
-  }""",
-        "  restart() { return; }",
-        "restart",
-    )
-
-    text = must_replace(
-        text,
-        "v[q + 'ex'] = ans[q] != null && (ans[q] === cfg.c || !st);",
-        "v[q + 'ex'] = ans[q] != null;",
-        "show expl",
-    )
-    text = must_replace(
-        text,
-        "v[q + 'rbl'] = lk2 ? 'WAIT ' + s2 : 'TRY AGAIN';",
-        "v[q + 'rbl'] = '';",
-        "rbl",
-    )
-
-    text = must_replace(
-        text,
-        """      v.fbSub = ok ? '' : (st ? 'Read the hint. Then try again.' : 'The correct answer is ' + name + '.');
-      const lk = st && !ok && this.locked();
-      const secs = lk ? Math.ceil((this.state.lockUntil - Date.now()) / 1000) : 0;
-      const minisLeft = this.quizzesOf(i).filter(x => this.QZ[x].mini).some(x => ans[x] == null || (st && !this.isOk(x, ans[x])));
-      v.fbBtn = (st && !ok) ? (lk ? 'WAIT ' + secs : 'TRY AGAIN') : (minisLeft ? 'DO "ONE MORE" BELOW' : 'CONTINUE');
-      const mutedBtn = { ...this.btn(25, true), background: '#e9dfcd', color: '#b0a48d', boxShadow: '0 4px 0 #d8cdb8', cursor: 'default' };
-      v.fbBtnSty = lk ? mutedBtn : ((ok || !st) && minisLeft ? mutedBtn : this.btn(ok ? 150 : 25, true));""",
-        """      v.fbSub = ok ? '' : 'The correct answer is ' + name + '.';
-      const lk = false;
-      const secs = 0;
-      const minisLeft = this.quizzesOf(i).filter(x => this.QZ[x].mini).some(x => ans[x] == null);
-      v.fbBtn = minisLeft ? 'DO "ONE MORE" BELOW' : 'CONTINUE';
-      const mutedBtn = { ...this.btn(25, true), background: '#e9dfcd', color: '#b0a48d', boxShadow: '0 4px 0 #d8cdb8', cursor: 'default' };
-      v.fbBtnSty = minisLeft ? mutedBtn : this.btn(ok ? 150 : 25, true);""",
-        "feedback",
-    )
-
-    text = must_replace(
-        text,
-        "const minisOk = this.quizzesOf(i).filter(x => this.QZ[x].mini).every(x => ans[x] != null && (!st || this.isOk(x, ans[x])));",
-        "const minisOk = this.quizzesOf(i).filter(x => this.QZ[x].mini).every(x => ans[x] != null);",
-        "minisOk",
-    )
-    text = must_replace(
-        text,
-        "const sortDone = this.SORT.every((x, k) => this.state.sortAns[k] === x.b);",
-        "const sortDone = this.SORT.every((x, k) => this.state.sortAns[k] != null);",
-        "sortDone",
-    )
-    text = must_replace(
-        text,
-        "const accDone = this.ACC.every((x, k) => this.state.accAns[k] === x.c);",
-        "const accDone = this.ACC.every((x, k) => this.state.accAns[k] != null);",
-        "accDone",
-    )
-    text = must_replace(
-        text,
         "v.showReset = (this.props.showPageReset ?? false) && view === 'lesson';",
         "v.showReset = this.skip() && view === 'lesson';",
         "showReset",
     )
 
-    bindings = """    v.timerAsk = !!this.state.timerAsk;
+    bindings = """    v.showHomeReset = this.skip();
+    v.timerAsk = !!this.state.timerAsk;
     v.timerErr = !!this.state.timerErr;
+    v.tapDev = () => this.tapDev();
     v.askSkip = () => this.askSkip();
     v.cancelSkip = () => this.cancelSkip();
     v.confirmSkip = () => this.confirmSkip();
-    v.timerChip = this.skip()
-      ? { fontFamily: "'Nunito',sans-serif", fontSize: '11px', fontWeight: 900, letterSpacing: '0.8px', height: '38px', padding: '0 12px', borderRadius: '99px', display: 'flex', alignItems: 'center', cursor: 'pointer', userSelect: 'none', flexShrink: 0, background: 'oklch(0.95 0.05 150)', color: 'oklch(0.38 0.1 150)', whiteSpace: 'nowrap' }
-      : { fontFamily: "'Nunito',sans-serif", fontSize: '11px', fontWeight: 900, letterSpacing: '0.8px', height: '38px', padding: '0 12px', borderRadius: '99px', display: 'flex', alignItems: 'center', cursor: 'pointer', userSelect: 'none', flexShrink: 0, background: '#f0e8da', color: '#8a7f6f', whiteSpace: 'nowrap' };
-    v.timerLbl = this.skip() ? 'DEVELOPER MODE · ON' : 'DEVELOPER MODE';
 """
     text = must_replace(
         text,
@@ -296,18 +203,27 @@ def patch(text: str, with_gate: bool) -> str:
         "bindings",
     )
 
-    leftover = text.count("TRY AGAIN")
-    if leftover:
-        raise SystemExit(f"still {leftover} TRY AGAIN strings")
-    if "DEVELOPER MODE" not in text:
-        raise SystemExit("developer button missing")
+    if "The flagged issue." not in text:
+        raise SystemExit("missing flagged-issue glossary line")
+    if "The pre-written complaint on the transcript." in text:
+        raise SystemExit("old glossary line still present")
+    if text.count("TRY AGAIN") < 8:
+        raise SystemExit(f"module TRY AGAIN missing ({text.count('TRY AGAIN')})")
+    if "DEVELOPER MODE" in text:
+        raise SystemExit("visible developer mode chip leaked into markup")
+    if "tapDev" not in text:
+        raise SystemExit("hidden eyebrow tap missing")
+    if "showHomeReset" not in text:
+        raise SystemExit("gated home reset missing")
+    if "if (fq.sub) return;" not in text:
+        raise SystemExit("final quiz lock missing")
     if with_gate and "../shared/gate.js" not in text:
         raise SystemExit("gate missing")
     return text
 
 
 def main() -> None:
-    src = Path(sys.argv[1]).read_text()
+    src = load_source(Path(sys.argv[1]))
     dest = Path(sys.argv[2])
     with_gate = sys.argv[3] == "gate"
     dest.write_text(patch(src, with_gate))
