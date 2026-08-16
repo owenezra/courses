@@ -21,7 +21,8 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 
 <sc-if value="{{ home }}" hint-placeholder-val="{{ true }}">
 <div data-screen-label="Home" style="flex:1;overflow-y:auto;">
-<div style="max-width:600px;margin:0 auto;padding:44px 24px 64px;display:flex;flex-direction:column;gap:14px;">
+<div style="max-width:600px;margin:0 auto;padding:28px 24px 64px;display:flex;flex-direction:column;gap:14px;">
+<div style="display:flex;justify-content:flex-start;"><div onClick="{{ askSkip }}" style="{{ timerChip }}">{{ timerLbl }}</div></div>
 <div style="text-align:center;margin-bottom:14px;">
 <div style="font-size:12px;font-weight:800;letter-spacing:2px;color:oklch(0.55 0.15 40);">A COURSE FOR NEW TASKERS</div>
 <h1 style="margin:8px 0 10px;font-size:34px;font-weight:900;letter-spacing:-0.5px;color:#3d362c;">Behavioral Review</h1>
@@ -124,7 +125,6 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 
 <div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.</div>
-<div style="display:flex;justify-content:center;margin-top:12px;"><div onClick="{{ askSkip }}" style="{{ timerChip }}">{{ timerLbl }}</div></div>
 </div>
 </div>
 </sc-if>
@@ -1521,7 +1521,7 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="position:fixed;inset:0;background:rgba(61,54,44,0.4);display:flex;align-items:center;justify-content:center;z-index:80;padding:20px;">
 <div style="width:min(22rem,100%);background:#fffdf8;border:2px solid #ece2d2;border-radius:20px;padding:18px 18px 16px;box-shadow:0 8px 0 #ece2d2;">
 <div style="font-size:17px;font-weight:900;color:#3d362c;margin-bottom:6px;">Developer mode</div>
-<div style="font-size:14px;font-weight:600;color:#8a7f6f;line-height:1.5;margin-bottom:12px;">Enter the course password to skip wait timers and unlock every module.</div>
+<div style="font-size:14px;font-weight:600;color:#8a7f6f;line-height:1.5;margin-bottom:12px;">Enter the developer password to skip wait timers and unlock every module.</div>
 <input id="timer-pw" type="password" autocomplete="current-password" style="width:100%;box-sizing:border-box;border:2px solid #ece2d2;border-radius:12px;padding:11px 12px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:#3d362c;" />
 <sc-if value="{{ timerErr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">Not correct.</div></sc-if>
 <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
@@ -1664,7 +1664,9 @@ class Component extends DCLogic {
     const el = document.getElementById('timer-pw');
     const pw = el ? el.value : '';
     const run = async () => {
-      const ok = window.CoursesGate && typeof CoursesGate.check === 'function' && await CoursesGate.check(pw);
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+      const hex = Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      const ok = hex === '8026cc3c4a8501cfef09f31df5dcea55b33d1424bbd9fc985857f85d045d9fc9';
       if (!ok) { this.set({ timerErr: true }); return; }
       try {
         localStorage.setItem('brv-dev-mode', '1');
