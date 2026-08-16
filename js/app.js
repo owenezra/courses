@@ -167,37 +167,55 @@
     `;
 
     bind(s);
-    if (s.type === "sort") bindDrag(s, "[data-hold]", "[data-bin]", (id, bin) => {
-      state.flashId = id;
-      setAnswer(id, bin, true);
-      setAnswer("held", null, true);
-      render();
-      window.setTimeout(() => {
-        if (state.flashId === id) state.flashId = null;
-      }, 400);
-    });
+    if (s.type === "sort") {
+      bindDrag(s, "[data-hold]", "[data-bin]", (id, bin) => placeSort(id, bin));
+    }
     if (s.type === "match") {
       bindDrag(s, "[data-word]", "[data-meaning]", (wordId, meaningId) => {
-        const held = wordId;
-        if (held !== meaningId) {
+        if (wordId !== meaningId) {
           setAnswer("held", null, true);
-          mark(false, "miss-" + held + "-" + meaningId);
+          mark(false, "miss-" + wordId + "-" + meaningId);
           return;
         }
         const pairs = { ...(getAnswer("pairs") || {}) };
-        pairs[held] = meaningId;
+        pairs[wordId] = meaningId;
         setAnswer("pairs", pairs, true);
         setAnswer("held", null, true);
-        mark(true, "pair-" + held);
+        mark(true, "pair-" + wordId);
+      });
+      bindDrag(s, "[data-unpair]", "[data-pool]", (wordId) => {
+        const pairs = { ...(getAnswer("pairs") || {}) };
+        delete pairs[wordId];
+        setAnswer("pairs", pairs, true);
+        setAnswer("held", null);
       });
     }
+  }
+
+  function placeSort(id, bin) {
+    state.flashId = id;
+    if (bin === "pool") {
+      const ans = state.answers[screen().id] || {};
+      delete ans[id];
+      state.answers[screen().id] = ans;
+      setAnswer("held", null, true);
+      save();
+      render();
+    } else {
+      setAnswer(id, bin, true);
+      setAnswer("held", null, true);
+      render();
+    }
+    window.setTimeout(() => {
+      if (state.flashId === id) state.flashId = null;
+    }, 400);
   }
 
   function bindDrag(_s, handleSel, dropSel, onDrop) {
     root.querySelectorAll(handleSel).forEach((el) => {
       el.addEventListener("pointerdown", (ev) => {
         if (ev.button != null && ev.button !== 0) return;
-        const id = el.dataset.hold || el.dataset.word;
+        const id = el.dataset.hold || el.dataset.word || el.dataset.unpair;
         if (!id) return;
         const startX = ev.clientX;
         const startY = ev.clientY;
@@ -370,14 +388,15 @@
     const unused = s.items.filter((item) => !a[item.id]);
     return `
       <div class="stack">
-        <p class="note">Drag a case into a bin. You can also click a case, then a bin.</p>
-        <div class="pool">
+        <p class="note">Drag a case into a bin. Drag it back to the list if you change your mind.</p>
+        <div class="pool" data-bin="pool">
           ${unused
             .map(
               (item) =>
                 `<button class="chip ${held === item.id ? "held" : ""} ${state.flashId === item.id ? "in" : ""}" data-hold="${item.id}">${esc(item.text)}</button>`
             )
             .join("")}
+          ${unused.length ? "" : `<span class="note">Drop a case here to put it back.</span>`}
         </div>
         <div class="bins">
           ${s.bins
@@ -425,9 +444,10 @@
     const words = s.pairs.filter((p) => !pairs[p.id]);
     const meanings = s.pairs.filter((p) => !used.has(p.id));
     const done = Object.keys(pairs).length === s.pairs.length;
+    const paired = s.pairs.filter((p) => pairs[p.id]);
     return `
       <div class="match">
-        <div class="stack">
+        <div class="stack" data-pool="1">
           ${words
             .map(
               (p) =>
@@ -444,6 +464,16 @@
             .join("")}
         </div>
       </div>
+      ${
+        paired.length
+          ? `<div class="pool paired">${paired
+              .map(
+                (p) =>
+                  `<button class="chip" data-unpair="${p.id}">${esc(p.word)} — ${esc(p.meaning)}</button>`
+              )
+              .join("")}</div>`
+          : ""
+      }
       ${
         done
           ? `<div class="feedback ok" style="margin-top:1rem"><p>Correct. Use each word in only this sense when you write.</p></div>`
@@ -746,9 +776,7 @@
         const held = getAnswer("held");
         const parentBin = el.closest("[data-bin]");
         if (held && parentBin) {
-          state.flashId = held;
-          setAnswer(held, parentBin.dataset.bin);
-          setAnswer("held", null);
+          placeSort(held, parentBin.dataset.bin);
           return;
         }
         setAnswer("held", el.dataset.hold);
@@ -758,9 +786,7 @@
       el.addEventListener("click", () => {
         const held = getAnswer("held");
         if (!held) return;
-        state.flashId = held;
-        setAnswer(held, el.dataset.bin);
-        setAnswer("held", null);
+        placeSort(held, el.dataset.bin);
       });
     });
     root.querySelectorAll("[data-sort-check]").forEach((el) => {

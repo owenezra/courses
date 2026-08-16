@@ -36,7 +36,20 @@ const path = require("path");
 
   const inBin = await page.locator('[data-bin="behavior"] .item').count();
   if (inBin < 1) throw new Error("drag did not place a case");
-  console.log("shots ok", inBin);
+
+  const placed = page.locator('[data-bin="behavior"] .item').first();
+  const pool = page.locator('[data-bin="pool"]');
+  const placedBox = await placed.boundingBox();
+  const poolBox = await pool.boundingBox();
+  await page.mouse.move(placedBox.x + placedBox.width / 2, placedBox.y + placedBox.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(poolBox.x + poolBox.width / 2, poolBox.y + 20, { steps: 12 });
+  await page.mouse.up();
+  await page.waitForTimeout(250);
+  await page.screenshot({ path: path.join(dir, "06-back.png"), fullPage: true });
+  const back = await page.locator('[data-bin="pool"] .chip').count();
+  if (back < 4) throw new Error("drag back did not return the case: " + back);
+  console.log("shots ok", inBin, "back", back);
   await browser.close();
 })().catch((err) => {
   console.error(err);
