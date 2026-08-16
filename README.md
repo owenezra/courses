@@ -1,49 +1,32 @@
-# Pairwise v4 course
+# Courses
 
-A 15 to 20 minute primer for people who are new to this task.
+A catalog of short primers. Live at [learning.voyage/courses](https://learning.voyage/courses/).
 
-The course teaches [Pairwise Coding Transcript Behavioral Review v4](https://docs.google.com/document/d/1Mjcz5h2WRNE5MfixA8_M3PPS0koer0RoZAJQxaPaLGc/edit).
+Each course is a child of that path. The first course is [Pairwise v4](https://learning.voyage/courses/pairwise-v4/).
 
-It is a friendly walk-through, not a lecture. You judge short cases. Then you see the rule. A light score tracks first-try calls.
+The catalog and every course are password locked. Use the same password as the other Pairwise course.
 
-Learner text follows ASD-STE100 writing rules. Project names stay as in the v4 document.
-
-## Open the course
-
-Open `index.html` in a browser.
-
-Or start a local server:
+## Local
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Then open http://127.0.0.1:4173/
+Open http://127.0.0.1:4173/
 
-On GitHub Pages the course is at [learning.voyage/courses](https://learning.voyage/courses/).
+## Layout
 
-## What you do in the course
+| Path | What it is |
+|---|---|
+| `index.html` | Catalog |
+| `catalog.js` | List of courses |
+| `shared/gate.js` | Password lock |
+| `pairwise-v4/` | Pairwise v4 primer |
 
-1. Judge short cases. Decide if a case is about behavior.
-2. Learn the six words that this project uses.
-3. Mark the four start steps.
-4. Open the six steps in the tool.
-5. Answer Q1 to Q6 on a simulated desk.
-6. Put each behavior on the correct axis.
-7. Compare two rollouts. See what fails a task.
+To add a course, see **[ADDING.md](ADDING.md)**.
 
-A score tracks first-try calls. You can go back. Stations unlock as you go.
+## Pairwise v4
 
-This course does not replace the v4 document. Use that document when you work.
+A 15 to 20 minute primer for [Pairwise Coding Transcript Behavioral Review v4](https://docs.google.com/document/d/1Mjcz5h2WRNE5MfixA8_M3PPS0koer0RoZAJQxaPaLGc/edit).
 
-## Source of the rules
-
-All rules come from the v4 document. The course does not add new rules.
-
-## Edit the course
-
-- `js/content.js` holds the lessons and the checks.
-- `js/app.js` runs the screens.
-- `css/course.css` sets the look.
-
-Write new learner text in STE. See `STE.md`.
+Learner text follows ASD-STE100. See `pairwise-v4/STE.md`.

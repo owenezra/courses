@@ -132,6 +132,7 @@
         <header class="top">
           <div class="top-inner">
             <div class="brand">
+              <a class="home" href="../">All courses</a>
               <strong>${esc(COURSE.title)}</strong>
               <span>${esc(COURSE.blurb)}</span>
             </div>

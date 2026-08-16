@@ -4,7 +4,7 @@ const path = require("path");
 const vm = require("vm");
 
 const root = path.join(__dirname, "..");
-const src = fs.readFileSync(path.join(root, "js/content.js"), "utf8");
+const src = fs.readFileSync(path.join(root, "pairwise-v4/js/content.js"), "utf8");
 const ctx = {};
 vm.createContext(ctx);
 vm.runInContext(src, ctx);
@@ -95,7 +95,15 @@ course.screens.forEach((screen, i) => {
   }
 });
 
-const files = ["index.html", "css/course.css", "js/app.js", "js/content.js"];
+const files = [
+  "index.html",
+  "catalog.js",
+  "shared/gate.js",
+  "pairwise-v4/index.html",
+  "pairwise-v4/css/course.css",
+  "pairwise-v4/js/app.js",
+  "pairwise-v4/js/content.js",
+];
 files.forEach((file) => {
   if (!fs.existsSync(path.join(root, file))) errors.push(`missing ${file}`);
 });

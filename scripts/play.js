@@ -26,6 +26,13 @@ async function continueOn(page) {
     await page.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
     await page.evaluate(() => localStorage.clear());
     await page.reload({ waitUntil: "networkidle" });
+    await page.locator("#gate-pass").fill("wrong");
+    await page.getByRole("button", { name: "Open" }).click();
+    await page.locator("#gate-error").waitFor({ state: "visible" });
+    await page.locator("#gate-pass").fill("Pairwise2026!");
+    await page.getByRole("button", { name: "Open" }).click();
+    await page.getByRole("link", { name: "Pairwise v4" }).click();
+    await page.waitForURL("**/pairwise-v4/**");
 
     const title = await page.locator("h1").innerText();
     if (!title.includes("Start with a call")) throw new Error("missing open title: " + title);

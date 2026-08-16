@@ -3,23 +3,58 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pairwise v4 · task course</title>
-    <meta
-      name="description"
-      content="A 15 to 20 minute course for Pairwise Coding Transcript Behavioral Review v4."
-    />
+    <title>Courses · learning.voyage</title>
+    <meta name="description" content="Short primers for Alignerr tasking." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/course.css" />
+    <link rel="stylesheet" href="shared/hub.css" />
+    <script src="shared/gate.js"></script>
+    <script src="catalog.js"></script>
   </head>
   <body>
-    <a class="skip" href="#stage">Skip to the lesson</a>
-    <div id="app"></div>
-    <script src="js/content.js"></script>
-    <script src="js/app.js"></script>
+    <div class="wrap" id="hub"></div>
+    <script>
+      (function () {
+        if (!window.CoursesGate || !CoursesGate.unlocked()) return;
+        const root = document.getElementById("hub");
+        const courses = (CATALOG && CATALOG.courses) || [];
+        root.innerHTML = `
+          <div class="top">
+            <div>
+              <p class="kicker">learning.voyage</p>
+              <h1>${CATALOG.title}</h1>
+              <p class="lead">${CATALOG.blurb}</p>
+            </div>
+            <button class="out" type="button" id="out">Log out</button>
+          </div>
+          <div class="grid">
+            ${courses
+              .map((course) => {
+                const live = course.status === "live";
+                const href = live ? course.slug + "/" : "#";
+                const cls = live ? "card" : "card soon";
+                const tag = live ? course.minutes : "In progress";
+                return `
+                  <a class="${cls}" href="${href}">
+                    <h2>${course.title}</h2>
+                    <p>${course.blurb}</p>
+                    <div class="meta">${tag}</div>
+                  </a>
+                `;
+              })
+              .join("")}
+          </div>
+          <p class="how">Each course lives in its own folder, such as <code>/courses/pairwise-v4/</code>.</p>
+        `;
+        document.getElementById("out").addEventListener("click", function () {
+          CoursesGate.lock();
+          location.reload();
+        });
+      })();
+    </script>
   </body>
 </html>
