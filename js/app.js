@@ -136,9 +136,9 @@
               <span>${esc(COURSE.blurb)}</span>
             </div>
             <div class="meta">
-              <span>${esc(COURSE.minutes)}</span>
-              <span>Score <b>${state.score.correct}</b> / ${state.score.tried || 0}</span>
-              <span>Station <b>${currentStation + 1}</b> / ${COURSE.stations.length}</span>
+              <span class="pill">${esc(COURSE.minutes)}</span>
+              <span class="pill">Score <b>${state.score.correct}</b> / ${state.score.tried || 0}</span>
+              <span class="pill">Station <b>${currentStation + 1}</b> / ${COURSE.stations.length}</span>
             </div>
           </div>
           <div class="top-inner" style="padding-top:0">
@@ -167,6 +167,96 @@
     `;
 
     bind(s);
+    if (s.type === "sort") bindDrag(s, "[data-hold]", "[data-bin]", (id, bin) => {
+      state.flashId = id;
+      setAnswer(id, bin, true);
+      setAnswer("held", null, true);
+      render();
+      window.setTimeout(() => {
+        if (state.flashId === id) state.flashId = null;
+      }, 400);
+    });
+    if (s.type === "match") {
+      bindDrag(s, "[data-word]", "[data-meaning]", (wordId, meaningId) => {
+        const held = wordId;
+        if (held !== meaningId) {
+          setAnswer("held", null, true);
+          mark(false, "miss-" + held + "-" + meaningId);
+          return;
+        }
+        const pairs = { ...(getAnswer("pairs") || {}) };
+        pairs[held] = meaningId;
+        setAnswer("pairs", pairs, true);
+        setAnswer("held", null, true);
+        mark(true, "pair-" + held);
+      });
+    }
+  }
+
+  function bindDrag(_s, handleSel, dropSel, onDrop) {
+    root.querySelectorAll(handleSel).forEach((el) => {
+      el.addEventListener("pointerdown", (ev) => {
+        if (ev.button != null && ev.button !== 0) return;
+        const id = el.dataset.hold || el.dataset.word;
+        if (!id) return;
+        const startX = ev.clientX;
+        const startY = ev.clientY;
+        let dragging = false;
+        let ghost = null;
+
+        const move = (e) => {
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          if (!dragging && Math.hypot(dx, dy) < 7) return;
+          if (!dragging) {
+            dragging = true;
+            el.classList.add("ghosting");
+            ghost = el.cloneNode(true);
+            ghost.classList.add("drag-ghost");
+            ghost.style.width = el.getBoundingClientRect().width + "px";
+            document.body.appendChild(ghost);
+            try {
+              el.setPointerCapture(e.pointerId);
+            } catch {
+              /* ignore */
+            }
+          }
+          ghost.style.left = e.clientX + "px";
+          ghost.style.top = e.clientY + "px";
+          const under = document.elementFromPoint(e.clientX, e.clientY);
+          root.querySelectorAll(dropSel).forEach((bin) => {
+            bin.classList.toggle("hot", Boolean(under && (bin === under || bin.contains(under))));
+          });
+        };
+
+        const up = (e) => {
+          window.removeEventListener("pointermove", move);
+          window.removeEventListener("pointerup", up);
+          if (!dragging) return;
+          e.preventDefault();
+          el.addEventListener(
+            "click",
+            (clickEv) => {
+              clickEv.preventDefault();
+              clickEv.stopPropagation();
+            },
+            { once: true, capture: true }
+          );
+          const under = document.elementFromPoint(e.clientX, e.clientY);
+          const drop = under && under.closest(dropSel);
+          if (ghost) ghost.remove();
+          el.classList.remove("ghosting");
+          root.querySelectorAll(dropSel).forEach((bin) => bin.classList.remove("hot"));
+          if (drop) {
+            const dropId = drop.dataset.bin || drop.dataset.meaning;
+            onDrop(id, dropId);
+          }
+        };
+
+        window.addEventListener("pointermove", move);
+        window.addEventListener("pointerup", up);
+      });
+    });
   }
 
   function body(s) {
@@ -213,9 +303,7 @@
         <div class="prose">${paras(s.body)}</div>
         ${
           s.notes
-            ? `<div class="stack">${s.notes
-                .map((n) => `<div class="card"><p>${esc(n)}</p></div>`)
-                .join("")}</div>`
+            ? `<div class="card notes"><ul>${s.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul></div>`
             : ""
         }
       </div>
@@ -282,12 +370,12 @@
     const unused = s.items.filter((item) => !a[item.id]);
     return `
       <div class="stack">
-        <p class="note">Click a case. Then click a bin.</p>
+        <p class="note">Drag a case into a bin. You can also click a case, then a bin.</p>
         <div class="pool">
           ${unused
             .map(
               (item) =>
-                `<button class="chip ${held === item.id ? "held" : ""}" data-hold="${item.id}">${esc(item.text)}</button>`
+                `<button class="chip ${held === item.id ? "held" : ""} ${state.flashId === item.id ? "in" : ""}" data-hold="${item.id}">${esc(item.text)}</button>`
             )
             .join("")}
         </div>
@@ -301,7 +389,10 @@
                   ${inside
                     .map((item) => {
                       const ok = item.bin === bin.id;
-                      const cls = checked ? (ok ? "right" : "wrong") : "";
+                      const cls = [
+                        checked ? (ok ? "right" : "wrong") : "",
+                        state.flashId === item.id ? "in" : "",
+                      ].join(" ");
                       return `<button class="item ${cls}" data-hold="${item.id}">${esc(item.text)}</button>`;
                     })
                     .join("")}
@@ -655,6 +746,7 @@
         const held = getAnswer("held");
         const parentBin = el.closest("[data-bin]");
         if (held && parentBin) {
+          state.flashId = held;
           setAnswer(held, parentBin.dataset.bin);
           setAnswer("held", null);
           return;
@@ -666,6 +758,7 @@
       el.addEventListener("click", () => {
         const held = getAnswer("held");
         if (!held) return;
+        state.flashId = held;
         setAnswer(held, el.dataset.bin);
         setAnswer("held", null);
       });

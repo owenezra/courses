@@ -135,7 +135,7 @@ var COURSE = {
       title: "Pair each word with its meaning",
       lead: [
         "This project uses each word in only this sense.",
-        "Click a word. Then click its meaning.",
+        "Drag a word onto its meaning. You can also click.",
       ],
       pairs: [
         { id: "flag", word: "flag", meaning: "The pre-written complaint on the transcript" },
