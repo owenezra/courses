@@ -20,7 +20,7 @@ python3 -m http.server 4173
 
 Then open http://127.0.0.1:4173/
 
-On GitHub Pages the course is at `https://owenezra.github.io/courses/`.
+On GitHub Pages the course is at [learning.voyage/courses](https://learning.voyage/courses/).
 
 ## What you do in the course
 
