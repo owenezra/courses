@@ -4,7 +4,8 @@ const path = require("path");
 const vm = require("vm");
 
 const root = path.join(__dirname, "..");
-const src = fs.readFileSync(path.join(root, "pairwise-v4/js/content.js"), "utf8");
+const srcPath = path.join(root, "_archive/grok-primer/js/content.js");
+const src = fs.readFileSync(srcPath, "utf8");
 const ctx = {};
 vm.createContext(ctx);
 vm.runInContext(src, ctx);
@@ -100,9 +101,7 @@ const files = [
   "catalog.js",
   "shared/gate.js",
   "pairwise-v4/index.html",
-  "pairwise-v4/css/course.css",
-  "pairwise-v4/js/app.js",
-  "pairwise-v4/js/content.js",
+  "pairwise-v4/support.js",
 ];
 files.forEach((file) => {
   if (!fs.existsSync(path.join(root, file))) errors.push(`missing ${file}`);

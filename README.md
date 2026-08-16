@@ -9,10 +9,10 @@ The catalog is open. Pairwise v4 is password locked. Use the same password as th
 ## Local
 
 ```bash
-python3 -m http.server 4173
+python3 -m http.server 3002
 ```
 
-Open http://127.0.0.1:4173/
+Open http://127.0.0.1:3002/ for the catalog, or http://127.0.0.1:3002/pairwise-v4/ for the course.
 
 ## Layout
 
@@ -27,6 +27,8 @@ To add a course, see **[ADDING.md](ADDING.md)**.
 
 ## Pairwise v4
 
-A 15 to 20 minute primer for [Pairwise Coding Transcript Behavioral Review v4](https://docs.google.com/document/d/1Mjcz5h2WRNE5MfixA8_M3PPS0koer0RoZAJQxaPaLGc/edit).
+The live course is the Design Canvas build in `pairwise-v4/`.
 
-Learner text follows ASD-STE100. See `pairwise-v4/STE.md`.
+It teaches [Pairwise Coding Transcript Behavioral Review v4](https://docs.google.com/document/d/1Mjcz5h2WRNE5MfixA8_M3PPS0koer0RoZAJQxaPaLGc/edit) in Simplified Technical English.
+
+An earlier primer is in `_archive/grok-primer/`.

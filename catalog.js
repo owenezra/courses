@@ -5,8 +5,8 @@ var CATALOG = {
     {
       slug: "pairwise-v4",
       title: "Pairwise v4",
-      blurb: "A 15 to 20 minute primer for people who are new to this task.",
-      minutes: "15–20 min",
+      blurb: "Learn to judge coding-assistant behavior on Pairwise Review. Simplified Technical English.",
+      minutes: "30–40 min",
       status: "live",
     },
   ],
