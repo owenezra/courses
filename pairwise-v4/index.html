@@ -1981,7 +1981,7 @@ class Component extends DCLogic {
     v.canBack = view === 'lesson' && this.MODS[this.modOf(i)].indexOf(i) > 0;
     v.goHome = () => this.set({ view: 'home' });
     v.resetPg = () => this.resetPage();
-    v.showReset = (this.props.showPageReset ?? false) && view === 'lesson';
+    v.showReset = this.skip() && view === 'lesson';
     v.restart = () => this.restart();
     v.skipOn = this.skip();
     v.skipOff = !this.skip();
