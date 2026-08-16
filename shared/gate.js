@@ -147,7 +147,12 @@
     if (form) form.addEventListener("submit", onSubmit);
   }
 
-  window.CoursesGate = { unlocked, lock, grant };
+  async function check(text) {
+    const hex = await digest(String(text || ""));
+    return hex === HASH;
+  }
+
+  window.CoursesGate = { unlocked, lock, grant, check };
 
   if (!unlocked()) {
     if (document.readyState === "loading") {
