@@ -132,7 +132,6 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <sc-if value="{{ lesson }}" hint-placeholder-val="{{ false }}">
 <div style="display:flex;align-items:center;gap:14px;max-width:720px;width:100%;margin:0 auto;padding:16px 20px;box-sizing:border-box;">
 <div onClick="{{ goHome }}" title="Back to all modules" style="display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:99px;background:#f0e8da;color:#8a7f6f;font-size:12px;font-weight:900;letter-spacing:0.8px;cursor:pointer;flex-shrink:0;user-select:none;white-space:nowrap;"><span style="font-size:14px;">✕</span><span>EXIT MODULE</span></div>
-<div onClick="{{ askSkip }}" style="{{ timerChip }}">{{ timerLbl }}</div>
 <sc-if value="{{ showReset }}" hint-placeholder-val="{{ false }}"><div onClick="{{ resetPg }}" title="Dev: reset this page's progress" style="display:flex;align-items:center;height:38px;padding:0 14px;border-radius:99px;background:oklch(0.96 0.03 25);color:oklch(0.52 0.17 25);font-size:12px;font-weight:900;letter-spacing:0.8px;cursor:pointer;flex-shrink:0;user-select:none;white-space:nowrap;">↺ RESET PAGE</div></sc-if>
 <div style="flex:1;height:14px;border-radius:99px;background:#efe5d2;overflow:hidden;"><div style="{{ tpf }}"></div></div>
 <div style="font-size:14px;font-weight:900;color:#8a7f6f;flex-shrink:0;">{{ modPos }}</div>
@@ -1521,13 +1520,13 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <sc-if value="{{ timerAsk }}" hint-placeholder-val="{{ false }}">
 <div style="position:fixed;inset:0;background:rgba(61,54,44,0.4);display:flex;align-items:center;justify-content:center;z-index:80;padding:20px;">
 <div style="width:min(22rem,100%);background:#fffdf8;border:2px solid #ece2d2;border-radius:20px;padding:18px 18px 16px;box-shadow:0 8px 0 #ece2d2;">
-<div style="font-size:17px;font-weight:900;color:#3d362c;margin-bottom:6px;">Turn timers off</div>
-<div style="font-size:14px;font-weight:600;color:#8a7f6f;line-height:1.5;margin-bottom:12px;">Enter the course password to skip the wait timers.</div>
+<div style="font-size:17px;font-weight:900;color:#3d362c;margin-bottom:6px;">Developer mode</div>
+<div style="font-size:14px;font-weight:600;color:#8a7f6f;line-height:1.5;margin-bottom:12px;">Enter the course password to skip wait timers and unlock every module.</div>
 <input id="timer-pw" type="password" autocomplete="current-password" style="width:100%;box-sizing:border-box;border:2px solid #ece2d2;border-radius:12px;padding:11px 12px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:#3d362c;" />
 <sc-if value="{{ timerErr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;font-weight:800;color:oklch(0.45 0.14 25);">Not correct.</div></sc-if>
 <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
 <div onClick="{{ cancelSkip }}" style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;letter-spacing:0.8px;padding:10px 16px;border-radius:12px;cursor:pointer;user-select:none;background:#fffdf8;color:#8a7f6f;border:2px solid #ece2d2;box-shadow:0 3px 0 #ece2d2;">CANCEL</div>
-<div onClick="{{ confirmSkip }}" style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;letter-spacing:0.8px;padding:10px 16px;border-radius:12px;cursor:pointer;user-select:none;background:oklch(0.62 0.15 40);color:#fff;box-shadow:0 3px 0 oklch(0.50 0.15 40);">TURN OFF</div>
+<div onClick="{{ confirmSkip }}" style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;letter-spacing:0.8px;padding:10px 16px;border-radius:12px;cursor:pointer;user-select:none;background:oklch(0.62 0.15 40);color:#fff;box-shadow:0 3px 0 oklch(0.50 0.15 40);">TURN ON</div>
 </div>
 </div>
 </div>
@@ -1610,7 +1609,7 @@ class Component extends DCLogic {
       }
     } catch (e) {}
     try {
-      if (localStorage.getItem('brv-skip-timers') === '1') this.setState({ skipTimers: true });
+      if (localStorage.getItem('brv-dev-mode') === '1' || localStorage.getItem('brv-skip-timers') === '1') this.setState({ skipTimers: true });
     } catch (e) {}
     const perm = {};
     for (const q in this.QZ) perm[q] = this.shuffle(this.QZ[q].n);
@@ -1651,7 +1650,10 @@ class Component extends DCLogic {
   skip() { return !!this.state.skipTimers; }
   askSkip() {
     if (this.skip()) {
-      try { localStorage.setItem('brv-skip-timers', '0'); } catch (e) {}
+      try {
+        localStorage.setItem('brv-dev-mode', '0');
+        localStorage.setItem('brv-skip-timers', '0');
+      } catch (e) {}
       this.set({ skipTimers: false });
       return;
     }
@@ -1664,7 +1666,10 @@ class Component extends DCLogic {
     const run = async () => {
       const ok = window.CoursesGate && typeof CoursesGate.check === 'function' && await CoursesGate.check(pw);
       if (!ok) { this.set({ timerErr: true }); return; }
-      try { localStorage.setItem('brv-skip-timers', '1'); } catch (e) {}
+      try {
+        localStorage.setItem('brv-dev-mode', '1');
+        localStorage.setItem('brv-skip-timers', '1');
+      } catch (e) {}
       this.set({ skipTimers: true, timerAsk: false, timerErr: false, lockUntil: 0, flowLockUntil: 0 });
     };
     run();
@@ -1770,6 +1775,7 @@ class Component extends DCLogic {
   modOf(i) { for (let m = 0; m < this.MODS.length; m++) if (this.MODS[m].includes(i)) return m; return 0; }
   modDone(m) { return this.MODS[m].every(s => this.state.done[s]); }
   modUnlocked(m) {
+    if (this.skip()) return true;
     if (!(this.props.lockModules ?? true)) return true;
     for (let k = 0; k < m; k++) if (!this.modDone(k)) return false;
     return true;
@@ -1985,7 +1991,7 @@ class Component extends DCLogic {
     v.timerChip = this.skip()
       ? { fontFamily: "'Nunito',sans-serif", fontSize: '11px', fontWeight: 900, letterSpacing: '0.8px', height: '38px', padding: '0 12px', borderRadius: '99px', display: 'flex', alignItems: 'center', cursor: 'pointer', userSelect: 'none', flexShrink: 0, background: 'oklch(0.95 0.05 150)', color: 'oklch(0.38 0.1 150)', whiteSpace: 'nowrap' }
       : { fontFamily: "'Nunito',sans-serif", fontSize: '11px', fontWeight: 900, letterSpacing: '0.8px', height: '38px', padding: '0 12px', borderRadius: '99px', display: 'flex', alignItems: 'center', cursor: 'pointer', userSelect: 'none', flexShrink: 0, background: '#f0e8da', color: '#8a7f6f', whiteSpace: 'nowrap' };
-    v.timerLbl = this.skip() ? 'TIMERS OFF' : 'TIMERS ON';
+    v.timerLbl = this.skip() ? 'DEVELOPER MODE · ON' : 'DEVELOPER MODE';
     const cnt = Object.keys(done).length; const pct = Math.round(cnt / this.TOTAL * 100);
     v.pct = pct;
     v.hpf = { width: pct + '%', height: '100%', background: 'oklch(0.66 0.16 40)', borderRadius: '99px', transition: 'width .3s' };
