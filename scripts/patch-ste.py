@@ -168,7 +168,10 @@ def patch(text: str, with_gate: bool) -> str:
             "  .admin-faq{position:fixed;left:max(16px,calc(50% - 300px - 244px));top:44px;z-index:20;}\n"
             "}\n"
             "@media (max-width:959px){\n"
-            "  .admin-faq{margin:16px 0 8px 16px;}\n"
+            "  .admin-faq{display:flex;align-items:center;justify-content:space-between;gap:12px;width:min(420px,calc(100% - 32px));margin:16px auto 0;padding:10px 12px 10px 16px;border-radius:16px;}\n"
+            "  .admin-faq-kicker,.admin-faq-sub{display:none;}\n"
+            "  .admin-faq-title{margin:0;font-size:16px;}\n"
+            "  .admin-faq-btn{flex-shrink:0;height:34px;}\n"
             "}\n"
             "</style>",
             "admin faq css",

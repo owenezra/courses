@@ -38,9 +38,11 @@ const { chromium } = require("playwright");
   }
   await page.getByText("Behavioral Review").first().waitFor({ timeout: 15000 });
   await page.setViewportSize({ width: 800, height: 900 });
-  const box = await page.getByRole("link", { name: /Admin FAQ/ }).first().boundingBox();
-  if (!box || box.width > 280) throw new Error("admin faq is still a banner: " + JSON.stringify(box));
+  const narrow = await page.getByRole("link", { name: /Admin FAQ/ }).first().boundingBox();
+  if (!narrow || narrow.height > 80) throw new Error("narrow admin faq is too tall: " + JSON.stringify(narrow));
   await page.setViewportSize({ width: 1280, height: 900 });
+  const wide = await page.getByRole("link", { name: /Admin FAQ/ }).first().boundingBox();
+  if (!wide || wide.width > 280 || wide.x < 8) throw new Error("wide admin faq is not a left square: " + JSON.stringify(wide));
   await page.getByRole("link", { name: /Admin FAQ/ }).first().click();
   await page.waitForURL("**/pairwise-v4/faq/**");
   await page.getByRole("heading", { name: "Admin FAQ" }).waitFor();
