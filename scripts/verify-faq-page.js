@@ -37,6 +37,10 @@ const { chromium } = require("playwright");
     await page.getByRole("button", { name: "Open" }).click();
   }
   await page.getByText("Behavioral Review").first().waitFor({ timeout: 15000 });
+  await page.setViewportSize({ width: 800, height: 900 });
+  const box = await page.getByRole("link", { name: /Admin FAQ/ }).first().boundingBox();
+  if (!box || box.width > 280) throw new Error("admin faq is still a banner: " + JSON.stringify(box));
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.getByRole("link", { name: /Admin FAQ/ }).first().click();
   await page.waitForURL("**/pairwise-v4/faq/**");
   await page.getByRole("heading", { name: "Admin FAQ" }).waitFor();
