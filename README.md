@@ -22,7 +22,7 @@ Open http://127.0.0.1:3002/ for the catalog, or http://127.0.0.1:3002/pairwise-v
 | `catalog.js` | List of courses |
 | `shared/gate.js` | Password lock |
 | `pairwise-v4/` | Pairwise v4 primer |
-| `course-improvements/` | Latest deploy of Abdu’s course-improvements repo |
+| `course-improvements/` | Viewer for the current Pairwise v4 primer |
 
 To add a course, see **[ADDING.md](ADDING.md)**.
 

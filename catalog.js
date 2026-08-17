@@ -12,7 +12,7 @@ var CATALOG = {
     {
       slug: "course-improvements",
       title: "Course improvements",
-      blurb: "The latest STE primer from Abdu’s course-improvements production site.",
+      blurb: "The current STE primer on this site. Newer than the production /ste deploy.",
       minutes: "live",
       status: "live",
     },
