@@ -158,21 +158,11 @@ def patch(text: str, with_gate: bool) -> str:
             text,
             "@keyframes fbin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}\n</style>",
             "@keyframes fbin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}\n"
-            ".admin-faq{display:block;box-sizing:border-box;width:220px;max-width:calc(100% - 32px);text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);box-shadow:0 4px 0 oklch(0.78 0.08 230);border-radius:20px;padding:14px 16px;}\n"
+            ".admin-faq{display:flex;align-items:center;justify-content:space-between;gap:12px;box-sizing:border-box;width:min(460px,calc(100% - 32px));margin:18px auto 0;padding:10px 12px 10px 16px;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);box-shadow:0 4px 0 oklch(0.78 0.08 230);border-radius:16px;}\n"
             ".admin-faq:hover{filter:brightness(0.98);}\n"
-            ".admin-faq-kicker{font-size:11px;font-weight:900;letter-spacing:1.4px;color:oklch(0.42 0.1 230);margin-bottom:6px;}\n"
-            ".admin-faq-title{font-size:18px;font-weight:900;color:#3d362c;line-height:1.2;margin-bottom:6px;}\n"
-            ".admin-faq-sub{font-size:13px;font-weight:700;color:#5c5346;line-height:1.4;margin-bottom:12px;}\n"
-            ".admin-faq-btn{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:12px;background:oklch(0.52 0.12 230);color:#fff;font-size:12px;font-weight:900;letter-spacing:0.8px;}\n"
-            "@media (min-width:960px){\n"
-            "  .admin-faq{position:fixed;left:max(16px,calc(50% - 300px - 244px));top:44px;z-index:20;}\n"
-            "}\n"
-            "@media (max-width:959px){\n"
-            "  .admin-faq{display:flex;align-items:center;justify-content:space-between;gap:12px;width:min(420px,calc(100% - 32px));margin:16px auto 0;padding:10px 12px 10px 16px;border-radius:16px;}\n"
-            "  .admin-faq-kicker,.admin-faq-sub{display:none;}\n"
-            "  .admin-faq-title{margin:0;font-size:16px;}\n"
-            "  .admin-faq-btn{flex-shrink:0;height:34px;}\n"
-            "}\n"
+            ".admin-faq-title{font-size:16px;font-weight:900;color:#3d362c;line-height:1.15;}\n"
+            ".admin-faq-sub{font-size:12.5px;font-weight:700;color:#5c5346;line-height:1.3;margin-top:2px;}\n"
+            ".admin-faq-btn{flex-shrink:0;display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:12px;background:oklch(0.52 0.12 230);color:#fff;font-size:12px;font-weight:900;letter-spacing:0.8px;}\n"
             "</style>",
             "admin faq css",
         )
@@ -182,10 +172,11 @@ def patch(text: str, with_gate: bool) -> str:
             '<div data-screen-label="Home" style="flex:1;overflow-y:auto;">\n<div style="max-width:600px;margin:0 auto;padding:44px 24px 64px;display:flex;flex-direction:column;gap:14px;">',
             '<div data-screen-label="Home" style="flex:1;overflow-y:auto;">\n'
             '<a class="admin-faq" href="faq/">\n'
-            '<div class="admin-faq-kicker">ALREADY ON THE PROJECT?</div>\n'
+            '<div>\n'
             '<div class="admin-faq-title">Admin FAQ</div>\n'
-            '<div class="admin-faq-sub">Pay, Hubstaff, login, and other admin issues.</div>\n'
-            '<div class="admin-faq-btn">OPEN FAQ</div>\n'
+            '<div class="admin-faq-sub">Pay, Hubstaff, and login</div>\n'
+            '</div>\n'
+            '<div class="admin-faq-btn">OPEN</div>\n'
             '</a>\n'
             '<div style="max-width:600px;margin:0 auto;padding:44px 24px 64px;display:flex;flex-direction:column;gap:14px;">',
             "faq card",
