@@ -149,6 +149,7 @@ def patch(text: str, with_gate: bool) -> str:
         "home reset",
     )
 
+    text = text.replace("<u>Miss more than one</u>", "Miss more than <u>one</u>")
     text = text.replace(
         '<div style="text-align:center;margin-top:16px;"><a href="faq/" style="display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:99px;background:#fffdf8;border:2px solid #ece2d2;box-shadow:0 3px 0 #ece2d2;color:oklch(0.55 0.15 40);font-size:12px;font-weight:900;letter-spacing:0.8px;text-decoration:none;">PROJECT FAQ</a></div>\n',
         "",
