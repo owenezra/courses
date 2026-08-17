@@ -12,7 +12,7 @@ var CATALOG = {
     {
       slug: "course-improvements",
       title: "Course improvements",
-      blurb: "The latest deploy of Abdu’s course-improvements repo. Cascade, axes, practice, STE, and FAQ.",
+      blurb: "The latest STE primer from Abdu’s course-improvements production site.",
       minutes: "live",
       status: "live",
     },
