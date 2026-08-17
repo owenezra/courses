@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Course improvements · learning.voyage</title>
+    <meta
+      name="description"
+      content="Latest deploy of the course-improvements repo."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #f7f7f7;
+        font-family: Nunito, "Segoe UI", sans-serif;
+        color: #3c3c3c;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 16px;
+        background: #fff;
+        border-bottom: 2px solid #e5e5e5;
+        flex-shrink: 0;
+      }
+      .bar a {
+        color: #1cb0f6;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 0.92rem;
+      }
+      .bar a:hover {
+        color: #3c3c3c;
+      }
+      .meta {
+        min-width: 0;
+      }
+      .kicker {
+        margin: 0;
+        color: #1cb0f6;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 800;
+      }
+      iframe {
+        flex: 1;
+        width: 100%;
+        border: 0;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <div class="meta">
+        <p class="kicker">Latest from the repo</p>
+        <h1>course-improvements</h1>
+      </div>
+      <div>
+        <a href="../">← Courses</a>
+        ·
+        <a href="https://course-improvements.vercel.app/" target="_blank" rel="noreferrer">Open in a new tab</a>
+      </div>
+    </div>
+    <iframe
+      title="Latest course-improvements"
+      src="https://course-improvements.vercel.app/"
+    ></iframe>
+  </body>
+</html>

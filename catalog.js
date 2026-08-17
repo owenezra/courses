@@ -9,5 +9,12 @@ var CATALOG = {
       minutes: "about 35 min",
       status: "live",
     },
+    {
+      slug: "course-improvements",
+      title: "Course improvements",
+      blurb: "The latest deploy of Abdu’s course-improvements repo. Cascade, axes, practice, STE, and FAQ.",
+      minutes: "live",
+      status: "live",
+    },
   ],
 };
