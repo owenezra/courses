@@ -29,6 +29,8 @@ To add a course, see **[ADDING.md](ADDING.md)**.
 
 The live course is the Design Canvas build in `pairwise-v4/`.
 
+The project FAQ is at [`pairwise-v4/faq/`](https://learning.voyage/courses/pairwise-v4/faq/). It uses the same course password. Search is the same flexible matcher as the other course site.
+
 It teaches [Pairwise Coding Transcript Behavioral Review v4](https://docs.google.com/document/d/1Mjcz5h2WRNE5MfixA8_M3PPS0koer0RoZAJQxaPaLGc/edit) in Simplified Technical English.
 
 An earlier primer is in `_archive/grok-primer/`.

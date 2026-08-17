@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project FAQ · Behavioral Review</title>
+    <meta name="description" content="Searchable answers for Pairwise Behavioral Review." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="faq.css" />
+    <script src="../../shared/gate.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <a class="back" href="../">← COURSE</a>
+      </div>
+      <p class="kicker">PAIRWISE REVIEW</p>
+      <h1>Project FAQ</h1>
+      <p class="lead">62 questions people actually ask. Search or filter. This is the same lookup as the other course site.</p>
+      <label class="sr" for="search" style="position:absolute;left:-9999px">Search</label>
+      <input id="search" class="search" type="search" placeholder="Hubstaff, payment, quiz, release…" autocomplete="off" />
+      <div id="chips" class="chips"></div>
+      <p id="count" class="count"></p>
+      <div id="list" class="list"></div>
+      <p id="empty" class="empty" hidden>Nothing matches. Try a shorter word — Hubstaff, pay, Q1, Honesty.</p>
+    </div>
+    <script src="faq-data.js"></script>
+    <script src="faq-search.js"></script>
+    <script src="faq-ui.js"></script>
+  </body>
+</html>

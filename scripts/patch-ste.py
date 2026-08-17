@@ -149,6 +149,14 @@ def patch(text: str, with_gate: bool) -> str:
         "home reset",
     )
 
+    if 'href="faq/"' not in text:
+        text = must_replace(
+            text,
+            '<div style="font-size:14px;font-weight:900;color:#8a7f6f;">{{ pct }}%</div>\n</div>\n</div>',
+            '<div style="font-size:14px;font-weight:900;color:#8a7f6f;">{{ pct }}%</div>\n</div>\n<div style="text-align:center;margin-top:16px;"><a href="faq/" style="display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:99px;background:#fffdf8;border:2px solid #ece2d2;box-shadow:0 3px 0 #ece2d2;color:oklch(0.55 0.15 40);font-size:12px;font-weight:900;letter-spacing:0.8px;text-decoration:none;">PROJECT FAQ</a></div>\n</div>',
+            "faq link",
+        )
+
     text = must_replace(text, "</div>\n</x-dc>", OVERLAY + "\n</div>\n</x-dc>", "overlay")
 
     text = must_replace(
@@ -219,6 +227,8 @@ def patch(text: str, with_gate: bool) -> str:
         raise SystemExit("final quiz lock missing")
     if with_gate and "../shared/gate.js" not in text:
         raise SystemExit("gate missing")
+    if 'href="faq/"' not in text:
+        raise SystemExit("faq link missing")
     return text
 
 
