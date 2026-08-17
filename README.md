@@ -32,3 +32,11 @@ The live course is the Design Canvas build in `pairwise-v4/`.
 It teaches [Pairwise Coding Transcript Behavioral Review v4](https://docs.google.com/document/d/1Mjcz5h2WRNE5MfixA8_M3PPS0koer0RoZAJQxaPaLGc/edit) in Simplified Technical English.
 
 An earlier primer is in `_archive/grok-primer/`.
+
+To make a single-file copy you can send:
+
+```bash
+python3 scripts/package-ste.py
+```
+
+That writes `Pairwise Behavioral Review.html` and a zip to `~/Downloads`. Open the HTML in a browser. No server.
