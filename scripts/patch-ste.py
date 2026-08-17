@@ -149,12 +149,33 @@ def patch(text: str, with_gate: bool) -> str:
         "home reset",
     )
 
-    if 'href="faq/"' not in text:
+    text = text.replace(
+        '<div style="text-align:center;margin-top:16px;"><a href="faq/" style="display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:99px;background:#fffdf8;border:2px solid #ece2d2;box-shadow:0 3px 0 #ece2d2;color:oklch(0.55 0.15 40);font-size:12px;font-weight:900;letter-spacing:0.8px;text-decoration:none;">PROJECT FAQ</a></div>\n',
+        "",
+    )
+    if "Pay, access, and labeling" not in text:
         text = must_replace(
             text,
-            '<div style="font-size:14px;font-weight:900;color:#8a7f6f;">{{ pct }}%</div>\n</div>\n</div>',
-            '<div style="font-size:14px;font-weight:900;color:#8a7f6f;">{{ pct }}%</div>\n</div>\n<div style="text-align:center;margin-top:16px;"><a href="faq/" style="display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:99px;background:#fffdf8;border:2px solid #ece2d2;box-shadow:0 3px 0 #ece2d2;color:oklch(0.55 0.15 40);font-size:12px;font-weight:900;letter-spacing:0.8px;text-decoration:none;">PROJECT FAQ</a></div>\n</div>',
-            "faq link",
+            '<div style="font-size:14px;font-weight:900;color:#8a7f6f;">{{ pct }}%</div>\n</div>\n</div>\n\n<sc-if value="{{ allDone }}"',
+            '<div style="font-size:14px;font-weight:900;color:#8a7f6f;">{{ pct }}%</div>\n</div>\n</div>\n\n'
+            '<a href="faq/" style="display:block;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);border-radius:20px;padding:16px 18px;box-shadow:0 4px 0 oklch(0.78 0.08 230);">\n'
+            '<div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.42 0.1 230);margin-bottom:4px;">NOT THE COURSE</div>\n'
+            '<div style="font-size:20px;font-weight:900;color:#3d362c;margin-bottom:4px;">Pay, access, and labeling</div>\n'
+            '<div style="font-size:14.5px;font-weight:600;color:#5c5346;line-height:1.5;margin-bottom:12px;">Login, Hubstaff, payment, and task questions. Separate from the lessons below.</div>\n'
+            '<div style="display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:13px;background:oklch(0.52 0.12 230);color:#fff;font-size:12px;font-weight:900;letter-spacing:0.8px;">OPEN THE ANSWERS</div>\n'
+            '</a>\n\n<sc-if value="{{ allDone }}"',
+            "faq card top",
+        )
+        text = must_replace(
+            text,
+            '<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.',
+            '<a href="faq/" style="display:block;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);border-radius:20px;padding:16px 18px;box-shadow:0 4px 0 oklch(0.78 0.08 230);">\n'
+            '<div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:oklch(0.42 0.1 230);margin-bottom:4px;">NOT THE COURSE</div>\n'
+            '<div style="font-size:18px;font-weight:900;color:#3d362c;margin-bottom:4px;">Pay, access, and labeling</div>\n'
+            '<div style="font-size:14px;font-weight:600;color:#5c5346;line-height:1.5;">Need Hubstaff, pay, or login help? Open the answers.</div>\n'
+            '</a>\n\n'
+            '<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.',
+            "faq card bottom",
         )
 
     text = must_replace(text, "</div>\n</x-dc>", OVERLAY + "\n</div>\n</x-dc>", "overlay")
@@ -227,8 +248,8 @@ def patch(text: str, with_gate: bool) -> str:
         raise SystemExit("final quiz lock missing")
     if with_gate and "../shared/gate.js" not in text:
         raise SystemExit("gate missing")
-    if 'href="faq/"' not in text:
-        raise SystemExit("faq link missing")
+    if "Pay, access, and labeling" not in text or 'href="faq/"' not in text:
+        raise SystemExit("faq help card missing")
     return text
 
 
