@@ -15,6 +15,18 @@ body{margin:0;background:#fdfaf3;color:#4a4238;}
 a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 ::selection{background:oklch(0.85 0.08 40);}
 @keyframes fbin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.admin-faq{display:block;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);box-shadow:0 4px 0 oklch(0.78 0.08 230);border-radius:20px;padding:14px 16px;}
+.admin-faq:hover{filter:brightness(0.98);}
+.admin-faq-kicker{font-size:11px;font-weight:900;letter-spacing:1.4px;color:oklch(0.42 0.1 230);margin-bottom:6px;}
+.admin-faq-title{font-size:18px;font-weight:900;color:#3d362c;line-height:1.2;margin-bottom:6px;}
+.admin-faq-sub{font-size:13px;font-weight:700;color:#5c5346;line-height:1.4;margin-bottom:12px;}
+.admin-faq-btn{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:12px;background:oklch(0.52 0.12 230);color:#fff;font-size:12px;font-weight:900;letter-spacing:0.8px;}
+@media (min-width:1100px){
+  .admin-faq{position:fixed;left:max(16px,calc(50% - 300px - 236px));top:44px;width:212px;z-index:20;}
+}
+@media (max-width:1099px){
+  .admin-faq{margin:0 0 6px;}
+}
 </style>
 </helmet>
 <div style="font-family:'Nunito',sans-serif;height:100vh;background:#fdfaf3;color:#4a4238;display:flex;flex-direction:column;overflow:hidden;">
@@ -22,10 +34,11 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <sc-if value="{{ home }}" hint-placeholder-val="{{ true }}">
 <div data-screen-label="Home" style="flex:1;overflow-y:auto;">
 <div style="max-width:600px;margin:0 auto;padding:44px 24px 64px;display:flex;flex-direction:column;gap:14px;">
-<a href="faq/" style="display:block;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);border-radius:20px;padding:16px 18px;box-shadow:0 4px 0 oklch(0.78 0.08 230);">
-<div style="font-size:20px;font-weight:900;color:#3d362c;margin-bottom:6px;line-height:1.25;">Already in the project and need admin help?</div>
-<div style="font-size:14.5px;font-weight:600;color:#5c5346;line-height:1.5;margin-bottom:12px;">FAQs for payment, Hubstaff, login, and other admin issues.</div>
-<div style="display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:13px;background:oklch(0.52 0.12 230);color:#fff;font-size:12px;font-weight:900;letter-spacing:0.8px;">EXPLORE THE FAQ</div>
+<a class="admin-faq" href="faq/">
+<div class="admin-faq-kicker">ALREADY ON THE PROJECT?</div>
+<div class="admin-faq-title">Admin FAQ</div>
+<div class="admin-faq-sub">Pay, Hubstaff, login, and other admin issues.</div>
+<div class="admin-faq-btn">OPEN FAQ</div>
 </a>
 <div style="text-align:center;margin-bottom:14px;">
 <div onClick="{{ tapDev }}" style="font-size:12px;font-weight:800;letter-spacing:2px;color:oklch(0.55 0.15 40);">A COURSE FOR NEW TASKERS</div>
@@ -131,11 +144,6 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 </div>
 <div onClick="{{ gm8 }}" style="{{ mbs8 }}">{{ mb8 }}</div>
 </div>
-
-<a href="faq/" style="display:block;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);border-radius:20px;padding:16px 18px;box-shadow:0 4px 0 oklch(0.78 0.08 230);">
-<div style="font-size:18px;font-weight:900;color:#3d362c;margin-bottom:4px;">Already in the project and need admin help?</div>
-<div style="font-size:14px;font-weight:600;color:#5c5346;line-height:1.5;">FAQs for payment, Hubstaff, login, and other admin issues.</div>
-</a>
 
 <div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.<sc-if value="{{ showHomeReset }}" hint-placeholder-val="{{ false }}"> <span onClick="{{ restart }}" style="text-decoration:underline;cursor:pointer;">Reset</span></sc-if></div>
 </div>

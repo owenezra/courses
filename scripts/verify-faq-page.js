@@ -9,7 +9,7 @@ const { chromium } = require("playwright");
   await page.goto("http://127.0.0.1:3002/pairwise-v4/faq/", { waitUntil: "networkidle" });
   await page.locator("#gate-pass").fill("Pairwise2026!");
   await page.getByRole("button", { name: "Open" }).click();
-  await page.getByRole("heading", { name: "Already in the project and need admin help?" }).waitFor({ timeout: 15000 });
+  await page.getByRole("heading", { name: "Admin FAQ" }).waitFor({ timeout: 15000 });
   await page.locator("#count").getByText("62 questions").waitFor();
 
   await page.getByRole("button", { name: /Getting in/ }).click();
@@ -37,9 +37,9 @@ const { chromium } = require("playwright");
     await page.getByRole("button", { name: "Open" }).click();
   }
   await page.getByText("Behavioral Review").first().waitFor({ timeout: 15000 });
-  await page.getByRole("link", { name: /Already in the project and need admin help/ }).first().click();
+  await page.getByRole("link", { name: /Admin FAQ/ }).first().click();
   await page.waitForURL("**/pairwise-v4/faq/**");
-  await page.getByRole("heading", { name: "Already in the project and need admin help?" }).waitFor();
+  await page.getByRole("heading", { name: "Admin FAQ" }).waitFor();
 
   await browser.close();
   if (errors.length) {

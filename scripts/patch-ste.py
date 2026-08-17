@@ -153,28 +153,39 @@ def patch(text: str, with_gate: bool) -> str:
         '<div style="text-align:center;margin-top:16px;"><a href="faq/" style="display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:99px;background:#fffdf8;border:2px solid #ece2d2;box-shadow:0 3px 0 #ece2d2;color:oklch(0.55 0.15 40);font-size:12px;font-weight:900;letter-spacing:0.8px;text-decoration:none;">PROJECT FAQ</a></div>\n',
         "",
     )
-    if "Already in the project and need admin help?" not in text:
+    if ".admin-faq{" not in text:
+        text = must_replace(
+            text,
+            "@keyframes fbin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}\n</style>",
+            "@keyframes fbin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}\n"
+            ".admin-faq{display:block;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);box-shadow:0 4px 0 oklch(0.78 0.08 230);border-radius:20px;padding:14px 16px;}\n"
+            ".admin-faq:hover{filter:brightness(0.98);}\n"
+            ".admin-faq-kicker{font-size:11px;font-weight:900;letter-spacing:1.4px;color:oklch(0.42 0.1 230);margin-bottom:6px;}\n"
+            ".admin-faq-title{font-size:18px;font-weight:900;color:#3d362c;line-height:1.2;margin-bottom:6px;}\n"
+            ".admin-faq-sub{font-size:13px;font-weight:700;color:#5c5346;line-height:1.4;margin-bottom:12px;}\n"
+            ".admin-faq-btn{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:12px;background:oklch(0.52 0.12 230);color:#fff;font-size:12px;font-weight:900;letter-spacing:0.8px;}\n"
+            "@media (min-width:1100px){\n"
+            "  .admin-faq{position:fixed;left:max(16px,calc(50% - 300px - 236px));top:44px;width:212px;z-index:20;}\n"
+            "}\n"
+            "@media (max-width:1099px){\n"
+            "  .admin-faq{margin:0 0 6px;}\n"
+            "}\n"
+            "</style>",
+            "admin faq css",
+        )
+    if "Admin FAQ" not in text or 'class="admin-faq"' not in text:
         text = must_replace(
             text,
             '<div style="max-width:600px;margin:0 auto;padding:44px 24px 64px;display:flex;flex-direction:column;gap:14px;">\n<div style="text-align:center;margin-bottom:14px;">',
             '<div style="max-width:600px;margin:0 auto;padding:44px 24px 64px;display:flex;flex-direction:column;gap:14px;">\n'
-            '<a href="faq/" style="display:block;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);border-radius:20px;padding:16px 18px;box-shadow:0 4px 0 oklch(0.78 0.08 230);">\n'
-            '<div style="font-size:20px;font-weight:900;color:#3d362c;margin-bottom:6px;line-height:1.25;">Already in the project and need admin help?</div>\n'
-            '<div style="font-size:14.5px;font-weight:600;color:#5c5346;line-height:1.5;margin-bottom:12px;">FAQs for payment, Hubstaff, login, and other admin issues.</div>\n'
-            '<div style="display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:13px;background:oklch(0.52 0.12 230);color:#fff;font-size:12px;font-weight:900;letter-spacing:0.8px;">EXPLORE THE FAQ</div>\n'
+            '<a class="admin-faq" href="faq/">\n'
+            '<div class="admin-faq-kicker">ALREADY ON THE PROJECT?</div>\n'
+            '<div class="admin-faq-title">Admin FAQ</div>\n'
+            '<div class="admin-faq-sub">Pay, Hubstaff, login, and other admin issues.</div>\n'
+            '<div class="admin-faq-btn">OPEN FAQ</div>\n'
             '</a>\n'
             '<div style="text-align:center;margin-bottom:14px;">',
-            "faq card top",
-        )
-        text = must_replace(
-            text,
-            '<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.',
-            '<a href="faq/" style="display:block;text-decoration:none;color:inherit;background:oklch(0.95 0.04 230);border:2px solid oklch(0.78 0.08 230);border-radius:20px;padding:16px 18px;box-shadow:0 4px 0 oklch(0.78 0.08 230);">\n'
-            '<div style="font-size:18px;font-weight:900;color:#3d362c;margin-bottom:4px;">Already in the project and need admin help?</div>\n'
-            '<div style="font-size:14px;font-weight:600;color:#5c5346;line-height:1.5;">FAQs for payment, Hubstaff, login, and other admin issues.</div>\n'
-            '</a>\n\n'
-            '<div style="text-align:center;margin-top:18px;font-size:12.5px;font-weight:700;color:#b0a48d;">Progress is stored on this device.',
-            "faq card bottom",
+            "faq card",
         )
 
     text = must_replace(text, "</div>\n</x-dc>", OVERLAY + "\n</div>\n</x-dc>", "overlay")
@@ -247,7 +258,7 @@ def patch(text: str, with_gate: bool) -> str:
         raise SystemExit("final quiz lock missing")
     if with_gate and "../shared/gate.js" not in text:
         raise SystemExit("gate missing")
-    if "Already in the project and need admin help?" not in text or 'href="faq/"' not in text:
+    if "Admin FAQ" not in text or 'class="admin-faq"' not in text:
         raise SystemExit("faq help card missing")
     return text
 

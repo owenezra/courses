@@ -29,7 +29,7 @@ To add a course, see **[ADDING.md](ADDING.md)**.
 
 The live course is the Design Canvas build in `pairwise-v4/`.
 
-Admin help (payment, Hubstaff, login) is at [`pairwise-v4/faq/`](https://learning.voyage/courses/pairwise-v4/faq/). Same password as the course. It is a separate lookup, linked from the top of the course home.
+The Admin FAQ is at [`pairwise-v4/faq/`](https://learning.voyage/courses/pairwise-v4/faq/). Same password as the course. A small card on the course home links to it.
 
 It teaches [Pairwise Coding Transcript Behavioral Review v4](https://docs.google.com/document/d/1Mjcz5h2WRNE5MfixA8_M3PPS0koer0RoZAJQxaPaLGc/edit) in Simplified Technical English.
 
