@@ -160,7 +160,7 @@ Open the Client Portal from the instructions link. Use [Vercel](${VERCEL_PROFILE
     group: "access",
     q: "I failed the quiz. Can I retake it?",
     a: `No, you cannot.
-- The quiz is not the course. You must answer **all** quiz items correctly.
+- The quiz is not the course. Miss more than **one** of the twelve questions and you will not be added.
 - You have **one attempt**. A fail locks you out of the project.
 - The course site can stay open. That does not show that you are on the labeling queue.`,
     k: "locked out retake retry reset attempt exam test wrong answers completion code course",
@@ -272,7 +272,7 @@ Do not start a live task before Hubstaff and the client portal operate correctly
     group: "submit",
     q: "I forgot the Task ID or Stage UUID.",
     a: `1. Look in your Hubstaff screenshots first.
-2. If they are not there, wait until the task shows on [Vercel](${VERCEL_PROFILE}). This usually takes 1 or 2 days. Copy the IDs from there.
+2. If they are not there, wait until the task shows on [Vercel](${VERCEL_PROFILE}). This usually takes one day. Copy the IDs from there.
 There is no other method.`,
     k: "lost missing recover cannot find session capture saved",
     href: VERCEL_PROFILE,
