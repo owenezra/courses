@@ -23,7 +23,7 @@ Open http://127.0.0.1:3002/ for the catalog, or http://127.0.0.1:3002/pairwise-v
 | `shared/gate.js` | Password lock |
 | `pairwise-v4/` | Pairwise v4 primer |
 | `course-improvements/` | Viewer for the current Pairwise v4 primer |
-| `primer-first/` | Primer-first cut from the localhost:3003 proposal |
+| `primer-first/` | Primer-first cut: the primer is the course; extras are optional |
 
 To add a course, see **[ADDING.md](ADDING.md)**.
 

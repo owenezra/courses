@@ -19,7 +19,7 @@ var CATALOG = {
     {
       slug: "primer-first",
       title: "Primer-first cut",
-      blurb: "The primer is the course. Extra drills are marked optional, not a second numbered path.",
+      blurb: "The primer is the course. Extra drills are optional.",
       minutes: "about 35 min",
       status: "live",
     },

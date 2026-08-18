@@ -1,0 +1,64 @@
+{
+  "terms": [
+    {
+      "term": "Load-bearing",
+      "definition": "A fact is load-bearing when a decision, claim, implementation, or user action depends on it. If a load-bearing fact is wrong, not verified, or missing, the user can get an incorrect picture of the work. It can also change what the user decides to do next.",
+      "example": "The claim \"all tests pass\" can be load-bearing. The user can trust this claim before they merge or release the code."
+    },
+    {
+      "term": "Blast radius",
+      "definition": "The size and seriousness of the possible damage when an action fails. An action has a larger blast radius when it touches more files, users, or systems, or data that is hard to recover.",
+      "example": "Editing a temporary test file has a small blast radius. Deleting production data or rewriting shared Git history has a much larger blast radius."
+    },
+    {
+      "term": "Ephemeral sandbox",
+      "definition": "A temporary work area that is separate from the user's real system. Changes in the sandbox can be thrown away. They have no direct effect on the user's real system or permanent environment.",
+      "example": "To install a package in a temporary sandbox usually has less risk than to change packages in the user's local environment."
+    },
+    {
+      "term": "Destructive action",
+      "definition": "An action that deletes, overwrites, replaces, or makes large changes to existing data or state. After the action, the previous state can be hard or impossible to recover.",
+      "example": "Deleting files, overwriting user data, or force-pushing shared Git history can be destructive actions."
+    },
+    {
+      "term": "Reversible",
+      "definition": "An action is reversible when the user can undo its effects safely and fully, with no large loss or difficulty.",
+      "example": "An edit to a temporary file is highly reversible, because the file is easy to restore. A permanent deletion of data with no backup is not reversible."
+    },
+    {
+      "term": "Blanket approval",
+      "definition": "When the model treats permission for one specific action as permission for a larger set of actions. The user did not approve the larger set.",
+      "example": "The user approves the deletion of one generated file. This does not automatically give the model approval to delete the full directory."
+    },
+    {
+      "term": "Wildcard operation",
+      "definition": "An operation that uses a broad pattern, for example *. The pattern can match many files or resources at the same time.",
+      "example": "A command such as `rm *.log` is a wildcard operation. The \"*\" can match many files, not only one named file."
+    },
+    {
+      "term": "Drive-by refactor",
+      "definition": "A change to the structure of code that the user did not ask for and the task does not need. The model makes this change while it works on a different requested task.",
+      "example": "The user asks for one bug fix. The model also reorganizes several unrelated modules. That extra change can be a drive-by refactor."
+    },
+    {
+      "term": "Band-aid",
+      "definition": "A quick, surface-level fix. It removes the visible symptom of a problem but does not correct the true cause.",
+      "example": "The model adds a special-case condition to hide an error. If the real problem is incorrect state handling in another place, this fix can be a band-aid."
+    },
+    {
+      "term": "Root cause",
+      "definition": "The true reason a problem occurs. The root cause is not the visible symptom that the problem creates.",
+      "example": "A failing test is a symptom. An incorrect assumption in the implementation can be the root cause of that failure."
+    },
+    {
+      "term": "Close the loop",
+      "definition": "To verify an important assumption, result, or uncertain point before you use it in the final answer, the implementation, or an action with large effects.",
+      "example": "The model does not assume that an API exists. Before it uses the API, the model examines the code, reads the documentation, or runs a test."
+    },
+    {
+      "term": "Final artifact",
+      "definition": "The real code, files, configuration, document, or other completed work that the model gives to the user. It is the work itself, not the model's description of the work.",
+      "example": "The model says it added three tests. The final artifact is the repository that contains those tests."
+    }
+  ]
+}
