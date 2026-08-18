@@ -145,8 +145,14 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="margin-top:30px;border-top:2px dashed #e3d8c4;padding-top:22px;">
 <div style="text-align:center;margin-bottom:12px;">
 <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#a2957f;">OPTIONAL BUT <u>ENCOURAGED</u> · NOT THE COURSE</div>
+<sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
 <p style="margin:6px auto 0;max-width:440px;font-size:13px;font-weight:600;color:#8a7f6f;line-height:1.5;">Extra drills and references for after the course. Nothing below is required, and nothing below changes the rules above.</p>
+</sc-if>
+<sc-if value="{{ quizLocked }}" hint-placeholder-val="{{ true }}">
+<p style="margin:6px auto 0;max-width:440px;font-size:13px;font-weight:600;color:#8a7f6f;line-height:1.5;">These pages open after you finish the final quiz.</p>
+</sc-if>
 </div>
+<sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
 <a href="cascade/" style="text-decoration:none;color:inherit;display:block;background:#fdfaf3;border:2px dashed #e3d8c4;border-radius:16px;padding:12px 14px;">
 <div style="font-size:13.5px;font-weight:900;color:#3d362c;">Core judgment drills</div>
@@ -165,6 +171,27 @@ a{color:oklch(0.55 0.15 40);} a:hover{color:#4a4238;}
 <div style="margin-top:2px;font-size:12px;font-weight:600;color:#8a7f6f;line-height:1.45;">Terms like load-bearing and blast radius.</div>
 </a>
 </div>
+</sc-if>
+<sc-if value="{{ quizLocked }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<div style="background:#fdfaf3;border:2px dashed #e3d8c4;border-radius:16px;padding:12px 14px;opacity:0.55;">
+<div style="font-size:13.5px;font-weight:900;color:#3d362c;">Core judgment drills</div>
+<div style="margin-top:2px;font-size:12px;font-weight:600;color:#8a7f6f;line-height:1.45;">Locked · finish the final quiz first.</div>
+</div>
+<div style="background:#fdfaf3;border:2px dashed #e3d8c4;border-radius:16px;padding:12px 14px;opacity:0.55;">
+<div style="font-size:13.5px;font-weight:900;color:#3d362c;">Axes drills</div>
+<div style="margin-top:2px;font-size:12px;font-weight:600;color:#8a7f6f;line-height:1.45;">Locked · finish the final quiz first.</div>
+</div>
+<div style="background:#fdfaf3;border:2px dashed #e3d8c4;border-radius:16px;padding:12px 14px;opacity:0.55;">
+<div style="font-size:13.5px;font-weight:900;color:#3d362c;">Practice bank</div>
+<div style="margin-top:2px;font-size:12px;font-weight:600;color:#8a7f6f;line-height:1.45;">Locked · finish the final quiz first.</div>
+</div>
+<div style="background:#fdfaf3;border:2px dashed #e3d8c4;border-radius:16px;padding:12px 14px;opacity:0.55;">
+<div style="font-size:13.5px;font-weight:900;color:#3d362c;">Glossary</div>
+<div style="margin-top:2px;font-size:12px;font-weight:600;color:#8a7f6f;line-height:1.45;">Locked · finish the final quiz first.</div>
+</div>
+</div>
+</sc-if>
 </div>
 </div>
 </div>
@@ -2086,6 +2113,8 @@ class Component extends DCLogic {
     v.pct = pct;
     v.hpf = { width: pct + '%', height: '100%', background: 'oklch(0.66 0.16 40)', borderRadius: '99px', transition: 'width .3s' };
     v.allDone = cnt >= this.TOTAL;
+    v.quizDone = !!(this.state.fq && this.state.fq.sub);
+    v.quizLocked = !v.quizDone;
     const fnBase = { display: 'flex', gap: '14px', alignItems: 'center', background: '#fffdf8', border: '2px solid #ece2d2', boxShadow: '0 3px 0 #ece2d2', borderRadius: '14px', padding: '12px 14px', cursor: 'pointer', transition: 'all .12s', userSelect: 'none' };
     for (const fid of this.FLOW) {
       const seen = !!this.state.flowSeen[fid]; const selq = this.state.flowSel === fid;

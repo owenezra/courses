@@ -3,6 +3,25 @@
   const mode = document.body.dataset.mode;
   if (!root || !mode) return;
 
+  function extrasUnlocked() {
+    try {
+      if (localStorage.getItem("brv-dev-mode") === "1") return true;
+      const s = JSON.parse(localStorage.getItem("brv-course-progress") || "{}");
+      return !!(s.fq && s.fq.sub);
+    } catch {
+      return false;
+    }
+  }
+
+  if (!extrasUnlocked()) {
+    root.innerHTML = `
+      <p class="kicker">LOCKED</p>
+      <h1>Finish the final quiz first</h1>
+      <p class="lead">These extra pages open after you submit the final quiz in the course.</p>
+      <a class="btn" href="../">← COURSE</a>`;
+    return;
+  }
+
   const esc = (s) =>
     String(s ?? "")
       .replace(/&/g, "&amp;")
