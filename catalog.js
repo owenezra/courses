@@ -16,5 +16,12 @@ var CATALOG = {
       minutes: "live",
       status: "live",
     },
+    {
+      slug: "primer-first",
+      title: "Primer-first cut",
+      blurb: "The primer is the course. Extra drills are marked optional, not a second numbered path.",
+      minutes: "about 35 min",
+      status: "live",
+    },
   ],
 };

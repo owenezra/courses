@@ -6,6 +6,7 @@ Each course is a folder under this repo. GitHub Pages serves this repo at `https
 |---|---|
 | `index.html` | `https://learning.voyage/courses/` |
 | `pairwise-v4/` | `https://learning.voyage/courses/pairwise-v4/` |
+| `primer-first/` | `https://learning.voyage/courses/primer-first/` |
 | `your-slug/` | `https://learning.voyage/courses/your-slug/` |
 
 ## Steps
