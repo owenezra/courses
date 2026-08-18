@@ -41,7 +41,7 @@
     function home() {
       ix = -1;
       root.innerHTML = `
-        <p class="kicker">OPTIONAL EXTRA</p>
+        <p class="kicker">OPTIONAL · ENCOURAGED</p>
         <h1>Harder core-judgment drills</h1>
         <p class="lead">Tougher flags to judge, start to finish. The six questions live in the primer module <strong>Six questions per flag</strong>. These drills only apply them.</p>
         <section class="card tech">
@@ -186,7 +186,7 @@
     function home() {
       ix = -1;
       root.innerHTML = `
-        <p class="kicker">OPTIONAL EXTRA</p>
+        <p class="kicker">OPTIONAL · ENCOURAGED</p>
         <h1>Axes drills</h1>
         <p class="lead">Extra practice on the seven axes, mixed review, and the A/B call. The primer teaches the axes. These pages only add drills.</p>
         ${lessons
@@ -288,7 +288,7 @@
       catId = null;
       const tiers = ["cascade", "axes", "compare", "process"];
       root.innerHTML = `
-        <p class="kicker">OPTIONAL EXTRA</p>
+        <p class="kicker">OPTIONAL · ENCOURAGED</p>
         <h1>Practice bank</h1>
         <p class="lead">${data.items.length} extra examples and boundary cases. The primer owns the rules. These items only apply them.</p>
         ${tiers
@@ -389,7 +389,7 @@
 
   function renderGlossary(data) {
     root.innerHTML = `
-      <p class="kicker">OPTIONAL EXTRA</p>
+      <p class="kicker">OPTIONAL · ENCOURAGED</p>
       <h1>Glossary</h1>
       <p class="lead">Unique terms used in the instructions. Axis terms are not here — the primer owns those.</p>
       ${data.terms
